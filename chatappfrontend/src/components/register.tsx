@@ -1,41 +1,46 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/authcontext';
+import { AuthContext } from '../contexts/AuthContext';
+import { ToastContext } from '../contexts/ToastContext';
 
 export default function Register() {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { setIsLoggedIn } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
 	event.preventDefault();
 	
 	if (!username || !email || !password) {
-		alert('Please fill out all fields.');
+		showToast('Please fill out all fields.', 'error');
 		return;
 	}
+	try {
+		const response = await fetch('http://localhost:5000/api/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username,
+				email,
+				password,
+			}),
+		});
 
-	const response = await fetch('http://localhost:5000/api/register', {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify({
-		username,
-		email,
-		password,
-	  }),
-	});
-
-	const data = await response.json();
-
-	if (response.ok) {
-		setIsLoggedIn(true);
-		navigate('/chatrooms');
-	  } else {
-		alert('Failed to register');
+		if (response.ok) {
+			setIsLoggedIn(true);
+			navigate('/chatrooms');
+		} 
+		else {
+			showToast('Failed to register', 'error');
+		}
+	}
+	catch (error) {
+		showToast('Error connecting to db', 'error');
 	}
   };
 

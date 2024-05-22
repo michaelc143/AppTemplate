@@ -1,11 +1,11 @@
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import home from './components/home';
-import login from './components/login';
-import register from './components/register';
-import chatrooms from './components/chatrooms';
-import pagenotfound from './components/pagenotfound';
+import home from './components/Home';
+import login from './components/Login';
+import register from './components/Register';
+import chatrooms from './components/Chatrooms';
+import pagenotfound from './components/PageNotFound';
 import { AuthProvider } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { ToastContainer } from 'react-toastify';

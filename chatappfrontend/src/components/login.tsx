@@ -1,11 +1,14 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/authcontext';
+import { AuthContext } from '../contexts/AuthContext';
+import { ToastContext } from '../contexts/ToastContext';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { setIsLoggedIn } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -19,20 +22,16 @@ export default function Login() {
 		body: JSON.stringify({ username, password })
 	  });
 
-	  if (!response.ok) {
-		throw new Error('Error logging in');
-	  }
-	  const data = await response.json();
 	  if (response.ok) {
 		setIsLoggedIn(true);
 		navigate('/chatrooms');
 	  }
 	  else {
-		alert('Error logging in');
+		showToast('Error logging in', 'error');
 	  }
 	} 
 	catch (error) {
-	  console.error(error);
+		showToast('Error connecting to db', 'error');
 	}
   };
 
@@ -46,11 +45,15 @@ export default function Login() {
 		  <div className="rounded-md shadow-sm -space-y-px">
 			<div>
 			  <label htmlFor="username" className="sr-only">Username</label>
-			  <input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+			  <input id="username" name="username" type="text" required 
+			  	className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+				placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
 			</div>
 			<div>
 			  <label htmlFor="password" className="sr-only">Password</label>
-			  <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+			  <input id="password" name="password" type="password" required 
+			  	className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+				placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
 			</div>
 		  </div>
 
