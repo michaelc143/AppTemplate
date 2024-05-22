@@ -80,7 +80,7 @@ def register():
         'message': 'Registered successfully',
         'username': user.username,
         'email': user.email,
-        'date_joined': user.created_at
+        'date_joined': str(user.created_at)
     }), 200
 
 @app.route('/api', methods=['GET'])
