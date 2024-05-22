@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: 
+      context: ./chatappbackend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  frontend:
+    build: 
+      context: ./chatappfrontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  db:
+    image: mysql/mysql-server:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: chat_app
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "53306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:
+    
