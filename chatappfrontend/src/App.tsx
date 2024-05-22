@@ -5,10 +5,11 @@ import login from './components/login';
 import register from './components/register';
 import chatrooms from './components/chatrooms';
 import pagenotfound from './components/pagenotfound';
+import { AuthProvider } from './contexts/authcontext';
 
 function App() {
 	return (
-		<>
+		<AuthProvider>
 			<Router>
 				<Routes>
 					<Route path='/' Component={home} />
@@ -18,7 +19,7 @@ function App() {
 					<Route path='*' Component={pagenotfound} />
 				</Routes>
 			</Router>
-		</>
+		</AuthProvider>
 	);
 }
 

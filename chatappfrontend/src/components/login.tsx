@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/authcontext';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -22,6 +24,7 @@ export default function Login() {
 	  }
 	  const data = await response.json();
 	  if (response.ok) {
+		setIsLoggedIn(true);
 		navigate('/chatrooms');
 	  }
 	  else {

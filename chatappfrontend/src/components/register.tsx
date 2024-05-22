@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/authcontext';
 
 export default function Register() {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -15,7 +17,7 @@ export default function Register() {
 		return;
 	}
 
-	const response = await fetch('localhost:5000/api/register', {
+	const response = await fetch('http://localhost:5000/api/register', {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
@@ -30,9 +32,10 @@ export default function Register() {
 	const data = await response.json();
 
 	if (response.ok) {
+		setIsLoggedIn(true);
 		navigate('/chatrooms');
 	  } else {
-		// Handle error...
+		alert('Failed to register');
 	}
   };
 
