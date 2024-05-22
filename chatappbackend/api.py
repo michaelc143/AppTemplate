@@ -40,9 +40,13 @@ def login():
     if user is None or not check_password_hash(user.password, password):
         return jsonify({'message': 'Invalid username or password'}), 401
 
-    # If the username and password are correct, start a new session
-    # In a real application, you would also generate a new session token here
-    return jsonify({'message': 'Logged in successfully'}), 200
+    # If the username and password are correct, return data and 200 response
+    return jsonify({
+        'message': 'Logged in successfully',
+        'username': user.username,
+        'email': user.email,
+        'date_joined': user.created_at
+    }), 200
 
 @app.route('/api/register', methods=['POST'])
 def register():
@@ -71,7 +75,13 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return jsonify({'message': 'Registered successfully'}), 200
+    # Return a success message
+    return jsonify({
+        'message': 'Registered successfully',
+        'username': user.username,
+        'email': user.email,
+        'date_joined': user.created_at
+    }), 200
 
 @app.route('/api', methods=['GET'])
 def test():

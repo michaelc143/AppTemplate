@@ -42,7 +42,10 @@ Log in a user.
 
 ```json
 {
-    "message": "Logged in successfully"
+    "date_joined": "date",
+    "email": "email",
+    "message": "Logged in successfully",
+    "username": "username"
 }
 ```
 
@@ -68,7 +71,10 @@ Register a new user.
 
 ```json
 {
-    "message": "Registered successfully"
+    "date_joined": "date",
+    "email": "email",
+    "message": "Registered successfully",
+    "username": "username"
 }
 ```
 
