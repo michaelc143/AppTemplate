@@ -1,12 +1,15 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
+import { UserContext } from '../contexts/UserContext';
 import { ToastContext } from '../contexts/ToastContext';
+import { User } from '../interfaces/UserInterface';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { setIsLoggedIn } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const { showToast } = useContext(ToastContext);
 
   const navigate = useNavigate();
@@ -22,8 +25,15 @@ export default function Login() {
 		body: JSON.stringify({ username, password })
 	  });
 
+	  const data = await response.json();
+
 	  if (response.ok) {
 		setIsLoggedIn(true);
+		setUser({
+			username: data.username,
+			email: data.email,
+			dateJoined: data.date_joined,
+		} as User);
 		navigate('/chatrooms');
 	  }
 	  else {

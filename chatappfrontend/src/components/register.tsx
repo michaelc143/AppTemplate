@@ -2,6 +2,8 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { ToastContext } from '../contexts/ToastContext';
+import { UserContext } from '../contexts/UserContext';
+import { User } from '../interfaces/UserInterface';
 
 export default function Register() {
   const [username, setUsername] = useState<string>('');
@@ -9,6 +11,7 @@ export default function Register() {
   const [password, setPassword] = useState<string>('');
   const { setIsLoggedIn } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -31,8 +34,15 @@ export default function Register() {
 			}),
 		});
 
+		const data = await response.json();
+
 		if (response.ok) {
 			setIsLoggedIn(true);
+			setUser({
+				username: data.username,
+				email: data.email,
+				dateJoined: data.date_joined,
+			} as User);
 			navigate('/chatrooms');
 		} 
 		else {
