@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { UserContext } from '../contexts/UserContext';
 import { ToastContext } from '../contexts/ToastContext';
-import { User } from '../interfaces/UserInterface';
+import { User } from '../Interfaces';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
