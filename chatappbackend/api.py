@@ -1,12 +1,16 @@
 """  API for the chat application """
+import os
+from dotenv import load_dotenv
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
+load_dotenv()
+
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@db/chat_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///default.db')
 db.init_app(app)
 
 @app.route('/api/users/<int:user_id>', methods=['GET'])
