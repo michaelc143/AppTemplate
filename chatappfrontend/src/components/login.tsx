@@ -34,6 +34,7 @@ export default function Login() {
 			email: data.email,
 			dateJoined: data.date_joined,
 		} as User);
+		showToast('Logged in successfully!', 'success');
 		navigate('/chatrooms');
 	  }
 	  else {

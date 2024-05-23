@@ -43,6 +43,7 @@ export default function Register() {
 				email: data.email,
 				dateJoined: data.date_joined,
 			} as User);
+			showToast('Registered successfully!', 'success');
 			navigate('/chatrooms');
 		} 
 		else {
