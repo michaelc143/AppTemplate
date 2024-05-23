@@ -9,5 +9,5 @@ To run the api locally, run `python3 api.py` in order to run the flask api local
 ## Linting the API
 
 ```bash
-pylint *.py --rcfile=.pylintrc
+pylint **/*.py --rcfile=.pylintrc
 ```
