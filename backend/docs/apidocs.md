@@ -1,6 +1,6 @@
-# Chat Application API Documentation
+# Application API Documentation
 
-This API provides endpoints for user authentication and registration in a chat application.
+This API provides endpoints for user authentication and registration in a application.
 
 ## Endpoints
 

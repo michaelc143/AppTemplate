@@ -1,4 +1,4 @@
-""" Models for the chat app backend """
+""" Models for the app backend """
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

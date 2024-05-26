@@ -1,4 +1,4 @@
-"""  API for the chat application """
+"""  API for the application """
 import os
 from dotenv import load_dotenv
 from routes import api
