@@ -35,7 +35,7 @@ export default function Login() {
           dateJoined: data.date_joined,
         } as User);
         showToast('Logged in successfully!', 'success');
-        navigate('/chatrooms');
+        navigate('/userinfo');
       }
       else {
         showToast('Error logging in', 'error');

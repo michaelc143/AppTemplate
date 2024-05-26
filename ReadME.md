@@ -1,4 +1,4 @@
-# ChatAPP Application
+# Application
 
 To run the application locally run the following command:
 

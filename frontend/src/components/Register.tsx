@@ -44,7 +44,7 @@ export default function Register() {
           dateJoined: data.date_joined,
         } as User);
         showToast('Registered successfully!', 'success');
-        navigate('/chatrooms');
+        navigate('/userinfo');
       } 
       else {
         showToast('Failed to register', 'error');
