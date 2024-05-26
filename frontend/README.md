@@ -1,6 +1,6 @@
 # Commands for running frontend
 
-This project uses react typescript with tailwind stylings
+This project uses React Typescript with Tailwind CSS.
 
 ### `npm start`
 
@@ -10,8 +10,8 @@ Runs hot-refreshes
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
