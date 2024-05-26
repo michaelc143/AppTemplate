@@ -11,6 +11,7 @@ import { ToastProvider } from './contexts/ToastContext';
 import { UserProvider } from './contexts/UserContext';
 import { ToastContainer } from 'react-toastify';
 import Navbar from './components/Navbar';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/logout' element={<Logout />} />
               <Route path='/register' element={<Register />} />
               <Route path='/chatrooms' element={<Chatrooms />} />
               <Route path='*' element={<PageNotFound />} />
