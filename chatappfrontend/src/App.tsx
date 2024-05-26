@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { UserProvider } from './contexts/UserContext';
 import { ToastContainer } from 'react-toastify';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <ToastProvider>
           <ToastContainer />
           <Router>
+            <Navbar />
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
