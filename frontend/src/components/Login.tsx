@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { UserContext } from '../contexts/UserContext';
 import { ToastContext } from '../contexts/ToastContext';
-import { User } from '../Interfaces';
+import { User, LoginResponse } from '../Interfaces';
 
 export default function Login(): React.JSX.Element {
   const [username, setUsername] = useState<string>('');
@@ -25,7 +25,7 @@ export default function Login(): React.JSX.Element {
         body: JSON.stringify({ username, password })
       });
 
-      const data = await response.json();
+      const data: LoginResponse = await response.json();
 
       if (response.ok) {
         setIsLoggedIn(true);
