@@ -27,4 +27,20 @@ describe('UserInfo', () => {
     expect(screen.getByText(mockUser.email)).toBeInTheDocument();
     expect(screen.getByText(mockUser.dateJoined)).toBeInTheDocument();
   });
+
+  test('renders not logged in redirect to /', () => {
+
+    render(
+      <Router>
+        <AuthContext.Provider value={{ isLoggedIn: false }}>
+          <UserContext.Provider value={{ user: {} }}>
+            <UserInfo />
+          </UserContext.Provider>
+        </AuthContext.Provider>
+      </Router>
+    );
+    // make sure it redirects to home page when not logged in
+    expect(window.location.pathname).toBe('/');
+    expect(window.location.pathname).not.toBe('/userinfo');
+  });
 });
