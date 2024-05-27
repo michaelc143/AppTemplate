@@ -12,6 +12,7 @@ export default function Navbar(): React.JSX.Element {
         <nav className="flex justify-end bg-white border-gray-200 dark:bg-gray-900 w-full">
           <Link to="/" className="text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2">Home</Link>
           <Link to="/logout" className="text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2">Logout</Link>
+          <Link to="/deleteaccount" className="text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2">Delete Account</Link>
           <Link to="/userinfo" className="text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 px-4 py-2">User Info</Link>
         </nav>
       </header>

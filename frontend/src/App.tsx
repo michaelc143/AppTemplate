@@ -8,6 +8,7 @@ import UserInfo from './components/UserInfo';
 import PageNotFound from './components/PageNotFound';
 import Navbar from './components/Navbar';
 import Logout from './components/Logout';
+import DeleteAccount from './components/DeleteAccount';
 import { AuthProvider } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { UserProvider } from './contexts/UserContext';
@@ -27,6 +28,7 @@ function App() {
               <Route path='/logout' element={<Logout />} />
               <Route path='/register' element={<Register />} />
               <Route path='/userinfo' element={<UserInfo />} />
+              <Route path='/deleteaccount' element={<DeleteAccount />} />
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Router>
