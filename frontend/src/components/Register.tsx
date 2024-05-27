@@ -5,7 +5,7 @@ import { ToastContext } from '../contexts/ToastContext';
 import { UserContext } from '../contexts/UserContext';
 import { User } from '../Interfaces';
 
-export default function Register() {
+export default function Register(): React.JSX.Element {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

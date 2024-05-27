@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
-export default function Navbar() {
+export default function Navbar(): React.JSX.Element {
 
   const { isLoggedIn } = useContext(AuthContext);
 

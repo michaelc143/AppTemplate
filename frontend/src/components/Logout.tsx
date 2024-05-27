@@ -3,7 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
-export default function Logout() {
+export default function Logout(): React.JSX.Element {
 
   const { setIsLoggedIn } = useContext(AuthContext);
   const { setUser } = useContext(UserContext);

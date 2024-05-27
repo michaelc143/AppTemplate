@@ -3,7 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 
-export default function UserInfo() {
+export default function UserInfo(): React.JSX.Element {
 
   const { isLoggedIn } = useContext(AuthContext);
   const { user } = useContext(UserContext);
