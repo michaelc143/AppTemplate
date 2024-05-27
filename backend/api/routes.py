@@ -23,6 +23,26 @@ def get_user(user_id):
     except sqlalchemy.exc.SQLAlchemyError:
         return jsonify({'message': 'Internal server error'}), 500
 
+@api.route('/users/<string:username>', methods=['DELETE'])
+def delete_user(username):
+    """ Delete a user by username """
+    try:
+        # Find the user by username
+        user = User.query.filter_by(username=username).first()
+
+        if user is None:
+            # If the user doesn't exist, return an error
+            return jsonify({'message': 'User not found'}), 404
+
+        # Delete the user and commit the changes
+        db.session.delete(user)
+        db.session.commit()
+
+        # Return a success message
+        return jsonify({'message': 'User deleted successfully'}), 200
+    except sqlalchemy.exc.SQLAlchemyError:
+        return jsonify({'message': 'Internal server error'}), 500
+
 @api.route('/login', methods=['POST'])
 def login():
     """ Log in a user """
