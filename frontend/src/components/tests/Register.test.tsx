@@ -14,7 +14,6 @@ describe('Register', () => {
           <UserContext.Provider value={{ user: {} }}>
             <ToastContext.Provider value={{ showToast: jest.fn() }}>
               <Register />
-            <Register />
             </ToastContext.Provider>
           </UserContext.Provider>
         </AuthContext.Provider>
