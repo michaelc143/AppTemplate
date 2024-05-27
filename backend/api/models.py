@@ -11,3 +11,8 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
