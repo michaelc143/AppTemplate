@@ -10,7 +10,11 @@ Runs hot-refreshes
 
 ## `npm test`
 
-Launches the test runner in the interactive watch mode.
+Runs all tests in the /tests folder.
+
+## npm test -- --coverage
+
+Runs all tests in the /tests folder and generates a coverage report.
 
 ## `npm run build`
 
