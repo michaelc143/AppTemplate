@@ -4,7 +4,7 @@ export interface User {
   dateJoined: string;
 }
 
-export interface LoginResponse {
+export interface AuthResponse {
   date_joined: string;
   email: string;
   message: string;
