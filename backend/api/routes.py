@@ -89,7 +89,7 @@ def register():
 
         if user is not None or user_email is not None:
             # If a user with the provided username/email already exists, return an error
-            return jsonify({'message': 'Username/Email already taken'}), 400
+            return jsonify({'message': 'Username/Email already taken'}), 401
 
         # Hash the password
         hashed_password = generate_password_hash(password)
