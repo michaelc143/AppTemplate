@@ -1,0 +1,6 @@
+Dockerfile
+coverage/
+ReadME.md
+.dockerignore
+.gitignore
+node_modules/
