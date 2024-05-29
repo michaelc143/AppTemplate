@@ -52,7 +52,7 @@ python3 ./api/api.py
 To get into the database while it's running within the docker compose, run the following command:
 
 ```bash
-docker exec -it app-db-1 mysql -u root -p
+docker exec -it db mysql -u root -p
 ```
 
 Then use the password in the .env file to get into the database.
