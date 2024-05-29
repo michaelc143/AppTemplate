@@ -33,8 +33,17 @@ On startup, the MySQL engine creates a database called **app** and creates the *
 On first run, run the following commands to start the frontend on its own:
 
 ```bash
+cd ./frontend
 npm install
 npm start
+```
+
+To test the frontend, run the following commands:
+
+```bash
+cd ./frontend
+npm install
+npm test
 ```
 
 ### Backend
