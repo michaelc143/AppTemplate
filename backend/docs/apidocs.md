@@ -8,6 +8,10 @@ This API provides endpoints for user authentication and registration in a applic
 
 Get a user by ID.
 
+**URL Parameters**
+
+- `user_id` (int): The id of the user to get data about.
+
 **Response**
 
 - `200 OK` on success, with the following JSON data:
@@ -21,9 +25,11 @@ Get a user by ID.
 }
 ```
 
-- `400 Not found` if the user is not found
+- `404 Not found` if the user is not found
 
-### `Post /api/login`
+- `500 Internal Server Error` if there was an error processing the request.
+
+### `POST /api/login`
 
 Log in a user.
 
@@ -51,7 +57,9 @@ Log in a user.
 
 - `401 Unauthorized` if the username or password is invalid.
 
-### `Post /api/register`
+- `500 Internal Server Error` if there was an error processing the request.
+
+### `POST /api/register`
 
 Register a new user.
 
@@ -79,6 +87,30 @@ Register a new user.
 ```
 
 - `401 Unauthorized` if the username or email is already taken.
+
+- `500 Internal Server Error` if there was an error processing the request.
+
+### `DELETE /api/users/<username>`
+
+Delete a user by username.
+
+**URL Parameters**
+
+- `username` (string): The username of the user to delete.
+
+**Response**
+
+- `200 OK` on successful deletion, with the following JSON data:
+
+```json
+{
+    "message": "User deleted successfully"
+}
+```
+
+- `404 Not Found` if the user does not exist.
+
+- `500 Internal Server Error` if there was an error processing the request.
 
 ### `GET /api`
 
