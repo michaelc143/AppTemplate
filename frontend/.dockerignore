@@ -4,3 +4,4 @@ ReadME.md
 .dockerignore
 .gitignore
 node_modules/
+./src/components/tests/
