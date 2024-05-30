@@ -6,8 +6,25 @@ import { ToastContext } from '../../contexts/ToastContext';
 import Login from '../Login';
 
 describe('Login', () => {
-  test('renders Login form and allows typing', () => {
 
+  test('renders Login form and allows typing', () => {
+    render(
+      <Router>
+        <AuthContext.Provider value={{ isLoggedIn: false }}>
+          <UserContext.Provider value={{ user: {} }}>
+            <ToastContext.Provider value={{ showToast: jest.fn() }}>
+              <Login />
+            </ToastContext.Provider>
+          </UserContext.Provider>
+        </AuthContext.Provider>
+      </Router>
+    );
+
+    expect(screen.getByLabelText(/Username/i) as HTMLInputElement).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/i) as HTMLInputElement).toBeInTheDocument();
+  });
+
+  test('Login form allows typing', () => {
     render(
       <Router>
         <AuthContext.Provider value={{ isLoggedIn: false }}>
@@ -28,6 +45,5 @@ describe('Login', () => {
 
     expect(usernameInput.value).toBe('testuser');
     expect(passwordInput.value).toBe('testpassword');
-
   });
 });
