@@ -9,6 +9,13 @@ services:
       - "5000:5000"
     depends_on:
       - db
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /usr/src/app
+        - action: rebuild
+          path: ./backend
   frontend:
     build: 
       context: ./frontend
