@@ -1,5 +1,9 @@
 # Application Template
 
+![Backend Linting](https://github.com/michaelc143/AppTemplate/actions/workflows/backend-lint.yml/badge.svg)
+![Build and Push Docker Images](https://github.com/michaelc143/AppTemplate/actions/workflows/docker-image.yml/badge.svg)
+![Frontend Unit Tests](https://github.com/michaelc143/AppTemplate/actions/workflows/frontend-test.yml/badge.svg)
+
 This project is a starter template for applications to use a base to get a faster start on development.
 
 ## Requirements
