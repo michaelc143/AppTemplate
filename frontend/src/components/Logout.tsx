@@ -1,7 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { UserContext } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../contexts/AuthContext';
+import { UserContext } from '../contexts/UserContext';
 
 export default function Logout(): React.JSX.Element {
 

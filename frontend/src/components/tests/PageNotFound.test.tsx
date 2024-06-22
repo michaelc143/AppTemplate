@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import PageNotFound from '../PageNotFound';
 
 test('renders 404 and Page Not Found text', () => {

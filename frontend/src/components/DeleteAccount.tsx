@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
-import { useNavigate, Navigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
-import { ToastContext } from "../contexts/ToastContext";
+import { useContext } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../contexts/AuthContext';
+import { ToastContext } from '../contexts/ToastContext';
+import { UserContext } from '../contexts/UserContext';
 
 export default function DeleteAccount(): React.JSX.Element {
   const { user, setUser } = useContext(UserContext);

@@ -1,8 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+
 import { AuthContext } from '../../contexts/AuthContext';
-import { UserContext } from '../../contexts/UserContext';
 import { ToastContext } from '../../contexts/ToastContext';
+import { UserContext } from '../../contexts/UserContext';
 import Register from '../Register';
 
 describe('Register', () => {

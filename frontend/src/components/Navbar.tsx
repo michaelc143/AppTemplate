@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function Navbar(): React.JSX.Element {
 

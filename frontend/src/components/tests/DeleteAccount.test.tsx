@@ -1,8 +1,10 @@
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import { UserContext } from '../../contexts/UserContext';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+
 import { AuthContext } from '../../contexts/AuthContext';
 import { ToastContext } from '../../contexts/ToastContext';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { UserContext } from '../../contexts/UserContext';
 import DeleteAccount from '../DeleteAccount';
 
 describe('DeleteAccount', () => {

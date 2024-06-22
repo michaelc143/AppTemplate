@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { AuthContext } from '../contexts/AuthContext';
-import { UserContext } from '../contexts/UserContext';
 import { ToastContext } from '../contexts/ToastContext';
-import { User, AuthResponse } from '../Interfaces';
+import { UserContext } from '../contexts/UserContext';
+import { AuthResponse, User } from '../Interfaces';
 
 export default function Login(): React.JSX.Element {
   const [username, setUsername] = useState<string>('');

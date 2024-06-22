@@ -1,7 +1,9 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { render, screen } from '@testing-library/react';
+
 import { AuthContext } from '../../contexts/AuthContext';
 import { UserContext } from '../../contexts/UserContext';
-import { BrowserRouter as Router } from 'react-router-dom';
 import UserInfo from '../UserInfo';
 
 describe('UserInfo', () => {
