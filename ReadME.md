@@ -3,6 +3,7 @@
 ![Backend Linting](https://github.com/michaelc143/AppTemplate/actions/workflows/backend-lint.yml/badge.svg)
 ![Build and Push Docker Images](https://github.com/michaelc143/AppTemplate/actions/workflows/docker-image.yml/badge.svg)
 ![Frontend Unit Tests](https://github.com/michaelc143/AppTemplate/actions/workflows/frontend-test.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is a starter template for applications to use a base to get a faster start on development.
 
@@ -15,17 +16,17 @@ This project is a starter template for applications to use a base to get a faste
 
 ## Running the application with Docker Compose
 
-To run the application locally run the following command:
+To run the application locally run the following command: `docker compose up -d --build`.
 
-```bash
-docker compose up -d --build
-```
+To stop running the application, run the following command: `docker compose down`.
 
-To stop running the application, run the following command:
+### Running the application with Docker Compose Watch
 
-```bash
-docker compose down
-```
+To run the application while getting live updates for the frontend, run the following: `docker compose watch`.
+
+Running the above command will reload the container anytime a change is made in the frontend folder. This also requires that you reload the browser tab in order to see the updates content.
+
+To  stop the running compose, run the same `docker compose down` command to stop all containers running within the compose.
 
 ## Components of the application
 
@@ -42,13 +43,7 @@ npm install
 npm start
 ```
 
-To test the frontend, run the following commands:
-
-```bash
-cd ./frontend
-npm install
-npm test
-```
+To test the frontend, run the following command: `npm test`. This requires that `npm install` is ran within the `/frontend` folder beforehand so that all testing modules are imported.
 
 ### Backend
 
@@ -62,10 +57,11 @@ python3 ./api/api.py
 
 ### Database
 
-To get into the database while it's running within the docker compose, run the following command:
-
-```bash
-docker exec -it db mysql -u root -p
-```
+To get into the database while it's running within the docker compose, run the following command: `docker exec -it db mysql -u root -p`
 
 Then use the password in the .env file to get into the database.
+
+## License
+
+This project is licensed under the [MIT License](https://pitt.libguides.com/openlicensing/MIT).
+For details, please see the [LICENSE](LICENSE) file.
