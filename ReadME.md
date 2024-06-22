@@ -24,7 +24,7 @@ To stop running the application, run the following command: `docker compose down
 
 To run the application while getting live updates for the frontend, run the following: `docker compose watch`.
 
-Running the above command will reload the container anytime a change is made in the frontend folder. This also requires that you reload the browser tab in order to see the updates content.
+Running the above command will reload the associated container anytime a change is made in the frontend or backend folders. This also requires that you reload the browser tab in order to see the updates content.
 
 To  stop the running compose, run the same `docker compose down` command to stop all containers running within the compose.
 
