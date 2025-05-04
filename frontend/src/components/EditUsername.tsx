@@ -6,8 +6,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import { UserContext } from "../contexts/UserContext";
 import { ToastContext } from "../contexts/ToastContext";
 
-import { UsernameResponse } from "../interfaces/APIResponseInterfaces";
-
 export default function EditUsername(): React.JSX.Element {
 
 	const { isLoggedIn } = useContext(AuthContext);
@@ -45,13 +43,12 @@ export default function EditUsername(): React.JSX.Element {
 					username: newUsername,
 				}),
 			});
-	
-			const data: UsernameResponse = await response.json();
 
 			if (response.ok) {
 				showToast("Username changed successfully!", "success");
-				const updatedUser = {...user, username: data.username};
+				const updatedUser = { ...user, username: newUsername };
 				setUser(updatedUser);
+				setNewUsername(""); // Clear the input field after updating
 			} 
 			else {
 				showToast("Failed to change username", "error");
