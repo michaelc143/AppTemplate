@@ -112,6 +112,37 @@ Delete a user by username.
 
 - `500 Internal Server Error` if there was an error processing the request.
 
+### `PUT /api/users/<int:user_id>/username`
+
+Edit a user's username.
+
+**URL Parameters**
+
+- `user_id` (int): The ID of the user whose username is to be updated.
+
+**Request Body**
+
+```json
+{
+    "username": "new_username"
+}
+```
+
+**Response**
+
+- `200 OK` on successful update, with the following JSON data:
+
+```json
+{
+    "message": "Username updated successfully",
+    "username": "new_username"
+}
+```
+
+- `404 Not Found` if the user does not exist.
+
+- `500 Internal Server Error` if there was an error processing the request.
+
 ### `GET /api`
 
 Test endpoint to ensure the API is working.
