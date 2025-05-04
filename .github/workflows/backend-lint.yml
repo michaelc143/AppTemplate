@@ -1,11 +1,11 @@
-name: Backend Linting
+name: Linting
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  lint:
+  lintBackend:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,3 +23,18 @@ jobs:
       run: |
         cd ./backend
         pylint **/*.py --rcfile=.pylintrc --fail-under=8
+  lintFrontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install project and lint
+        run: |
+          cd ./frontend
+          npm install
+          npm run lint
