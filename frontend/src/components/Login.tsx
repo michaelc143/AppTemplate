@@ -38,7 +38,7 @@ export default function Login(): React.JSX.Element {
 					dateJoined: data.date_joined,
 				} as User);
 				showToast("Logged in successfully!", "success");
-				navigate("/userinfo");
+				navigate("/dashboard"); //todo: change to dashboard
 			}
 			else {
 				showToast("Error logging in", "error");

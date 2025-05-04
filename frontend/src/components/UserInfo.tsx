@@ -15,7 +15,7 @@ export default function UserInfo(): React.JSX.Element {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center my-16 dark:bg-neutral-900 pt-8 pb-8 max-w-2xl w-full mx-auto rounded-lg shadow-lg">
+		<div className="border-l-2 border-slate-500 flex flex-col items-center justify-center my-16 bg-slate-500 pt-8 pb-8 max-w-2xl w-full mx-auto rounded-lg shadow-lg">
 			<div className="mb-8 font-bold text-4xl text-white">User Info</div>
 			<div className="text-2xl text-white">Username: {user.username}</div>
 			<div className="text-2xl text-white">Email: {user.email}</div>
