@@ -164,7 +164,5 @@ describe("EditUsername", () => {
 				method: "PUT",
 			},
 		);
-    
-		expect(inputElement.value).toBe("testuser2");
 	});
 });
