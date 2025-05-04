@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { ToastContext } from "../contexts/ToastContext";
 import { UserContext } from "../contexts/UserContext";
-import { AuthResponse, User } from "../Interfaces";
+import { User } from "../interfaces/Interfaces";
+import { AuthResponse } from "../interfaces/APIResponseInterfaces";
 
 export default function Login(): React.JSX.Element {
 	const [username, setUsername] = useState<string>("");
