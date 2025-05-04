@@ -3,4 +3,10 @@ export interface AuthResponse {
     email: string;
     message: string;
     username: string;
+    user_id: string;
+}
+
+export interface UsernameResponse {
+    message: string;
+    username: string;
 }

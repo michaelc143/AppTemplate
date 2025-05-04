@@ -3,12 +3,10 @@ import { useContext } from "react";
 import { Navigate, Link } from "react-router-dom";
 
 import { AuthContext } from "../contexts/AuthContext";
-import { UserContext } from "../contexts/UserContext";
 
-export default function UserInfo(): React.JSX.Element {
+export default function EditProfile(): React.JSX.Element {
 
 	const { isLoggedIn } = useContext(AuthContext);
-	const { user } = useContext(UserContext);
 
 	if (!isLoggedIn) {
 		return <Navigate to="/" />;
@@ -16,12 +14,10 @@ export default function UserInfo(): React.JSX.Element {
 
 	return (
 		<div className="flex flex-col items-center justify-center my-16 dark:bg-neutral-900 pt-8 pb-8 max-w-2xl w-full mx-auto rounded-lg shadow-lg">
-			<div className="mb-8 font-bold text-4xl text-white">User Info</div>
-			<div className="text-2xl text-white">Username: {user.username}</div>
-			<div className="text-2xl text-white">Email: {user.email}</div>
-			<div className="text-2xl text-white">Date Joined: {user.dateJoined}</div>
+
+			<div className="mb-8 font-bold text-4xl text-white">Edit User</div>
 			<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-4">
-				<Link to="/editprofile"> Edit Profile</Link>
+				<Link to="/editusername"> Edit Username </Link>
 			</button>
 			<button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
 				<Link to="/deleteaccount">Delete Account</Link>

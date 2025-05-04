@@ -13,6 +13,7 @@ describe("Logout", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -21,7 +22,7 @@ describe("Logout", () => {
 		render(
 			<Router>
 				<AuthContext.Provider value={{ setIsLoggedIn, isLoggedIn: true }}>
-					<UserContext.Provider value={{ user:mockUser, setUser: setUser }}>
+					<UserContext.Provider value={{ user: mockUser, setUser: setUser }}>
 						<Logout />
 					</UserContext.Provider>
 				</AuthContext.Provider>
@@ -37,6 +38,7 @@ describe("Logout", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -56,6 +58,7 @@ describe("Logout", () => {
 
 		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
 		expect(setUser).toHaveBeenCalledWith({
+			userId: "",
 			username: "",
 			email: "",
 			dateJoined: "",

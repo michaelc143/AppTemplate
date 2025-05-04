@@ -32,6 +32,7 @@ export default function Login(): React.JSX.Element {
 			if (response.ok) {
 				setIsLoggedIn(true);
 				setUser({
+					userId: data.user_id,
 					username: data.username,
 					email: data.email,
 					dateJoined: data.date_joined,

@@ -22,6 +22,7 @@ describe("DeleteAccount", () => {
 		const setIsLoggedIn = jest.fn();
 
 		const mockUser: User = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -48,6 +49,7 @@ describe("DeleteAccount", () => {
 
 		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
 		expect(setUser).toHaveBeenCalledWith({
+			userId: "",
 			username: "",
 			email: "",
 			dateJoined: "",
@@ -62,6 +64,7 @@ describe("DeleteAccount", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",

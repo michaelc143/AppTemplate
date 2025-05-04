@@ -25,6 +25,7 @@ export default function DeleteAccount(): React.JSX.Element {
 			if(response.ok) {
 				setIsLoggedIn(false);
 				setUser({
+					userId: "",
 					username: "",
 					email: "",
 					dateJoined: "",

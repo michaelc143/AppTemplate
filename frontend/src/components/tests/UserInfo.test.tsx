@@ -13,6 +13,7 @@ describe("UserInfo", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -28,10 +29,10 @@ describe("UserInfo", () => {
 			</Router>,
 		);
 
-		expect(screen.getByText("User Info")).toBeInTheDocument();
-		expect(screen.getByText(mockUser.username)).toBeInTheDocument();
-		expect(screen.getByText(mockUser.email)).toBeInTheDocument();
-		expect(screen.getByText(mockUser.dateJoined)).toBeInTheDocument();
+		expect(screen.getByText(/User Info/i)).toBeInTheDocument();
+		expect(screen.getByText(/Username: testuser/i)).toBeInTheDocument();
+		expect(screen.getByText(/Email: testuser@example.com/i)).toBeInTheDocument();
+		expect(screen.getByText(/2022-01-01/i)).toBeInTheDocument();
 	});
 
 	test("renders not logged in redirect to /", () => {
@@ -39,6 +40,7 @@ describe("UserInfo", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
