@@ -12,6 +12,7 @@ import Logout from "./components/Logout";
 import DeleteAccount from "./components/DeleteAccount";
 import EditProfile from "./components/EditProfile";
 import EditUsername from "./components/EditUsername";
+import Dashboard from "./components/Dashboard Components/Dashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import { UserProvider } from "./contexts/UserContext";
@@ -34,6 +35,7 @@ function App() {
 							<Route path='/deleteaccount' element={<DeleteAccount />} />
 							<Route path='/editprofile' element={<EditProfile />} />
 							<Route path='/editusername' element={<EditUsername />} />
+							<Route path='/dashboard' element={<Dashboard />} />
 							<Route path='*' element={<PageNotFound />} />
 						</Routes>
 					</Router>
