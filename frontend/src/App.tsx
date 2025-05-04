@@ -10,6 +10,8 @@ import PageNotFound from "./components/PageNotFound";
 import Navbar from "./components/Navbar";
 import Logout from "./components/Logout";
 import DeleteAccount from "./components/DeleteAccount";
+import EditProfile from "./components/EditProfile";
+import EditUsername from "./components/EditUsername";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import { UserProvider } from "./contexts/UserContext";
@@ -30,6 +32,8 @@ function App() {
 							<Route path='/register' element={<Register />} />
 							<Route path='/userinfo' element={<UserInfo />} />
 							<Route path='/deleteaccount' element={<DeleteAccount />} />
+							<Route path='/editprofile' element={<EditProfile />} />
+							<Route path='/editusername' element={<EditUsername />} />
 							<Route path='*' element={<PageNotFound />} />
 						</Routes>
 					</Router>

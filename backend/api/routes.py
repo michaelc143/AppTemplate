@@ -64,6 +64,7 @@ def login():
         # If the username and password are correct, return data and 200 response
         return jsonify({
             'message': 'Logged in successfully',
+            'user_id': user.id,
             'username': user.username,
             'email': user.email,
             'date_joined': user.created_at
@@ -106,6 +107,33 @@ def register():
             'email': user.email,
             'date_joined': str(user.created_at)
         }), 200
+    except sqlalchemy.exc.SQLAlchemyError:
+        return jsonify({'message': 'Internal server error'}), 500
+
+@api.route('/users/<int:user_id>/username', methods=['PUT'])
+def edit_username(user_id):
+    """ Edit a user's username """
+    try:
+        data = request.get_json()
+
+        # Get the new username from the request
+        new_username = data.get('username')
+        
+        # Find the user by ID
+        user = User.query.get(user_id)
+
+        if user is None:
+            # If the user doesn't exist, return an error
+            return jsonify({'message': 'User not found'}), 404
+
+        # Update the username and commit the changes
+        user.username = new_username
+        db.session.commit()
+
+        # Return a success message
+        return jsonify({
+            'message': 'Username updated successfully',
+            'username': user.username}), 200
     except sqlalchemy.exc.SQLAlchemyError:
         return jsonify({'message': 'Internal server error'}), 500
 

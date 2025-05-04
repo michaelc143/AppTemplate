@@ -15,6 +15,7 @@ describe("Login", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -41,6 +42,7 @@ describe("Login", () => {
 		const setUser = jest.fn();
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
@@ -80,6 +82,7 @@ describe("Login", () => {
 		);
 
 		const mockUser = {
+			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",

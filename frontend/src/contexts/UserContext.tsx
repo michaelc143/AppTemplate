@@ -6,6 +6,7 @@ export const UserContext = createContext<{
 	setUser: React.Dispatch<React.SetStateAction<User>>;
 }>({
 	user: {
+		userId: "",
 		username: "",
 		email: "",
 		dateJoined: "",
@@ -20,6 +21,7 @@ interface UserProviderProps {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [user, setUser] = useState<User>({
+		userId: "",
 		username: "",
 		email: "",
 		dateJoined: "",

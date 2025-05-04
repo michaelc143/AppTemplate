@@ -14,6 +14,7 @@ export default function Logout(): React.JSX.Element {
 	const logout = () => {
 		setIsLoggedIn(false);
 		setUser({
+			userId: "",
 			username: "",
 			email: "",
 			dateJoined: "",
