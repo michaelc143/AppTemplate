@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { ToastContext } from "../../contexts/ToastContext";
 import { UserContext } from "../../contexts/UserContext";
 import DeleteAccount from "../DeleteAccount";
-import { User } from "../../Interfaces";
+import { User } from "../../interfaces/Interfaces";
 
 describe("DeleteAccount", () => {
 	it("deletes the user account", async () => {
