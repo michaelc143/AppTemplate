@@ -1,48 +1,65 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from "@testing-library/react";
 
-import { AuthContext } from '../../contexts/AuthContext';
-import { UserContext } from '../../contexts/UserContext';
-import Logout from '../Logout';
+import { AuthContext } from "../../contexts/AuthContext";
+import { UserContext } from "../../contexts/UserContext";
+import Logout from "../Logout";
 
-describe('Logout', () => {
-  test('renders logout button', () => {
-    const setIsLoggedIn = jest.fn();
-    const setUser = jest.fn();
+describe("Logout", () => {
+	test("renders logout button", () => {
+		const setIsLoggedIn = jest.fn();
+		const setUser = jest.fn();
 
-    render(
-      <Router>
-        <AuthContext.Provider value={{ setIsLoggedIn }}>
-          <UserContext.Provider value={{ setUser }}>
-            <Logout />
-          </UserContext.Provider>
-        </AuthContext.Provider>
-      </Router>
-    );
+		const mockUser = {
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+		};
 
-    expect(screen.getByText('Are you sure you want to logout?')).toBeInTheDocument();
-    expect(screen.getByText('Logout')).toBeInTheDocument();
-  });
+		render(
+			<Router>
+				<AuthContext.Provider value={{ setIsLoggedIn, isLoggedIn: true }}>
+					<UserContext.Provider value={{ user:mockUser, setUser: setUser }}>
+						<Logout />
+					</UserContext.Provider>
+				</AuthContext.Provider>
+			</Router>,
+		);
 
-  test('calls logout function on button click', () => {
-    const setIsLoggedIn = jest.fn();
-    const setUser = jest.fn();
+		expect(screen.getByText("Are you sure you want to logout?")).toBeInTheDocument();
+		expect(screen.getByText("Logout")).toBeInTheDocument();
+	});
 
-    render(
-      <Router>
-        <AuthContext.Provider value={{ setIsLoggedIn }}>
-          <UserContext.Provider value={{ setUser }}>
-            <Logout />
-          </UserContext.Provider>
-        </AuthContext.Provider>
-      </Router>
-    );
+	test("calls logout function on button click", () => {
+		const setIsLoggedIn = jest.fn();
+		const setUser = jest.fn();
 
-    fireEvent.click(screen.getByText('Logout'));
+		const mockUser = {
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+		};
 
-    expect(setIsLoggedIn).toHaveBeenCalledWith(false);
-    expect(setUser).toHaveBeenCalledWith({});
-    expect(window.location.pathname).toBe('/');
-  });
+		render(
+			<Router>
+				<AuthContext.Provider value={{ setIsLoggedIn, isLoggedIn: true }}>
+					<UserContext.Provider value={{ user: mockUser, setUser: setUser }}>
+						<Logout />
+					</UserContext.Provider>
+				</AuthContext.Provider>
+			</Router>,
+		);
+
+		fireEvent.click(screen.getByText("Logout"));
+
+		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
+		expect(setUser).toHaveBeenCalledWith({
+			username: "",
+			email: "",
+			dateJoined: "",
+		});
+		expect(window.location.pathname).toBe("/");
+	});
 });
