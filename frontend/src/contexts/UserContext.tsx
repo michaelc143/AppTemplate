@@ -4,28 +4,30 @@ import { User } from "../interfaces/Interfaces";
 export const UserContext = createContext<{
 	user: User;
 	setUser: React.Dispatch<React.SetStateAction<User>>;
-}>({
+}>( {
 	user: {
 		userId: "",
 		username: "",
 		email: "",
 		dateJoined: "",
+		accessToken: ""
 	},
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setUser: () => {},
-});
+	setUser: () => {}
+} );
 
 interface UserProviderProps {
   children: ReactNode;
 }
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-	const [user, setUser] = useState<User>({
+export const UserProvider: React.FC<UserProviderProps> = ( { children } ) => {
+	const [ user, setUser ] = useState<User>( {
 		userId: "",
 		username: "",
 		email: "",
 		dateJoined: "",
-	});
+		accessToken: ""
+	} );
 
 	return (
 		<UserContext.Provider value={{ user, setUser}}>

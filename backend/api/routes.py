@@ -3,13 +3,29 @@ import sqlalchemy.exc
 from flask import Blueprint, jsonify, request
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
 
-@api.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
+@jwt_required()
+@api.route('/users/<string:username>', methods=['GET'])
+def get_user(username):
     """ Get a user by ID """
     try:
+        current_user = get_jwt_identity()
+        if current_user != username:
+            return jsonify({'message': 'You are not authorized to view this user'}), 403
+        
+        data = request.get_json()
+
+        # Get the user ID from the request
+        if 'user_id' in data:
+            user_id = data.get('user_id')
+        else:
+            # If user_id is not provided, return an error
+            return jsonify({'message': 'User ID is required'}), 400
+        
+        # Find the user by ID
         user = User.query.get(user_id)
         if user is None:
             return jsonify({'message': 'User not found'}), 404
@@ -24,9 +40,15 @@ def get_user(user_id):
         return jsonify({'message': 'Internal server error'}), 500
 
 @api.route('/users/<string:username>', methods=['DELETE'])
+@jwt_required()
 def delete_user(username):
     """ Delete a user by username """
+
     try:
+        current_user = get_jwt_identity()
+        if current_user != username:
+            return jsonify({'message': 'You are not authorized to delete this user'}), 403
+        
         # Find the user by username
         user = User.query.filter_by(username=username).first()
 
@@ -61,13 +83,17 @@ def login():
         if user is None or not check_password_hash(user.password, password):
             return jsonify({'message': 'Invalid username or password'}), 401
 
+        # Create a JWT token for the user
+        access_token = create_access_token(identity=username)
+
         # If the username and password are correct, return data and 200 response
         return jsonify({
             'message': 'Logged in successfully',
             'user_id': user.id,
             'username': user.username,
             'email': user.email,
-            'date_joined': user.created_at
+            'date_joined': user.created_at,
+            'access_token': access_token
         }), 200
     except sqlalchemy.exc.SQLAlchemyError:
         return jsonify({'message': 'Internal server error'}), 500
@@ -110,15 +136,26 @@ def register():
     except sqlalchemy.exc.SQLAlchemyError:
         return jsonify({'message': 'Internal server error'}), 500
 
-@api.route('/users/<int:user_id>/username', methods=['PUT'])
-def edit_username(user_id):
+@jwt_required()
+@api.route('/users/<string:username>/username', methods=['PUT'])
+def edit_username(username):
     """ Edit a user's username """
     try:
         data = request.get_json()
 
+        current_user = get_jwt_identity()
+        if current_user != username:
+            return jsonify({'message': 'You are not authorized to edit this user'}), 403
+
         # Get the new username from the request
         new_username = data.get('username')
         
+        if 'user_id' in data:
+            user_id = data.get('userId')
+        else:
+            # If user_id is not provided, return an error
+            return jsonify({'message': 'User ID is required'}), 400
+
         # Find the user by ID
         user = User.query.get(user_id)
 

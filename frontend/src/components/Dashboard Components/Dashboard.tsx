@@ -9,10 +9,10 @@ import DashboardMainPane from "./DashboardMainPane";
 
 export default function Dashboard(): React.JSX.Element {
 
-	const { isLoggedIn } = useContext(AuthContext);
-	const { user } = useContext(UserContext);
+	const { isLoggedIn } = useContext( AuthContext );
+	const { user } = useContext( UserContext );
 
-	if (!isLoggedIn) {
+	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
 	}
 

@@ -1,14 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import UserInfo from "../UserInfo";
 
-describe("UserInfo", () => {
-	test("renders user info when logged in", () => {
+describe( "UserInfo", () => {
+	test( "renders user info when logged in", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -17,6 +16,7 @@ describe("UserInfo", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -26,16 +26,18 @@ describe("UserInfo", () => {
 						<UserInfo />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(screen.getByText(/User Info/i)).toBeInTheDocument();
-		expect(screen.getByText(/Username: testuser/i)).toBeInTheDocument();
-		expect(screen.getByText(/Email: testuser@example.com/i)).toBeInTheDocument();
-		expect(screen.getByText(/2022-01-01/i)).toBeInTheDocument();
-	});
+		expect( screen.getByText( /User Info/i ) ).toBeInTheDocument();
+		expect( screen.getByText( /Username: testuser/i ) ).toBeInTheDocument();
+		expect(
+			screen.getByText( /Email: testuser@example.com/i )
+		).toBeInTheDocument();
+		expect( screen.getByText( /2022-01-01/i ) ).toBeInTheDocument();
+	} );
 
-	test("renders not logged in redirect to /", () => {
+	test( "renders not logged in redirect to /", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -44,6 +46,7 @@ describe("UserInfo", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -53,10 +56,10 @@ describe("UserInfo", () => {
 						<UserInfo />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 		// make sure it redirects to home page when not logged in
-		expect(window.location.pathname).toBe("/");
-		expect(window.location.pathname).not.toBe("/userinfo");
-	});
-});
+		expect( window.location.pathname ).toBe( "/" );
+		expect( window.location.pathname ).not.toBe( "/userinfo" );
+	} );
+} );
