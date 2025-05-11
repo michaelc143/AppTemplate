@@ -9,12 +9,12 @@ import { UserContext } from "../../contexts/UserContext";
 import DeleteAccount from "../DeleteAccount";
 import { User } from "../../interfaces/Interfaces";
 
-describe("DeleteAccount", () => {
-	it("deletes the user account", async () => {
-		global.fetch = jest.fn(() =>
+describe( "DeleteAccount", () => {
+	it( "deletes the user account", async () => {
+		global.fetch = jest.fn( () =>
 			Promise.resolve(
-				new Response(JSON.stringify({ success: true })),
-			),
+				new Response( JSON.stringify( { success: true } ) )
+			)
 		);
 
 		const showToast = jest.fn();
@@ -26,7 +26,7 @@ describe("DeleteAccount", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -38,30 +38,30 @@ describe("DeleteAccount", () => {
 						</ToastContext.Provider>
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		const deleteButton = screen.getByRole("button", { name: /Delete Account/i });
-		fireEvent.click(deleteButton);
+		const deleteButton = screen.getByRole( "button", { name: /Delete Account/i } );
+		fireEvent.click( deleteButton );
 
-		await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
 
-		expect(global.fetch).toHaveBeenCalledWith("http://localhost:5000/api/users/testuser", { method: "DELETE", headers: {"Authorization": "Bearer mockAccessToken"} });
+		expect( global.fetch ).toHaveBeenCalledWith( "http://localhost:5000/api/users/testuser", { method: "DELETE", headers: {"Authorization": "Bearer mockAccessToken"} } );
 
-		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
-		expect(setUser).toHaveBeenCalledWith({
+		expect( setIsLoggedIn ).toHaveBeenCalledWith( false );
+		expect( setUser ).toHaveBeenCalledWith( {
 			userId: "",
 			username: "",
 			email: "",
 			dateJoined: "",
-			accessToken: "",
-		});
-		expect(showToast).toHaveBeenCalledWith("User deleted successfully", "success");
+			accessToken: ""
+		} );
+		expect( showToast ).toHaveBeenCalledWith( "User deleted successfully", "success" );
 
-		expect(window.location.pathname).toBe("/");
-	});
+		expect( window.location.pathname ).toBe( "/" );
+	} );
 
-	it("redirects to home page if user is not logged in", () => {
+	it( "redirects to home page if user is not logged in", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -70,7 +70,7 @@ describe("DeleteAccount", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -82,9 +82,9 @@ describe("DeleteAccount", () => {
 						</ToastContext.Provider>
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(window.location.pathname).toBe("/");
-	});
-});
+		expect( window.location.pathname ).toBe( "/" );
+	} );
+} );

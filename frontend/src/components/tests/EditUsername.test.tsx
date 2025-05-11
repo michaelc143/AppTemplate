@@ -7,8 +7,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import EditUsername from "../EditUsername";
 
-describe("EditUsername", () => {
-	test("renders user info when logged in", () => {
+describe( "EditUsername", () => {
+	test( "renders user info when logged in", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -17,7 +17,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -27,15 +27,15 @@ describe("EditUsername", () => {
 						<EditUsername />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(screen.getByText("Edit User")).toBeInTheDocument();
-		expect(screen.getByText(/Current Username: testuser/i)).toBeInTheDocument();
-		expect(screen.getByText("Delete Account")).toBeInTheDocument();
-	});
+		expect( screen.getByText( "Edit User" ) ).toBeInTheDocument();
+		expect( screen.getByText( /Current Username: testuser/i ) ).toBeInTheDocument();
+		expect( screen.getByText( "Delete Account" ) ).toBeInTheDocument();
+	} );
 
-	test("renders not logged in redirect to /", () => {
+	test( "renders not logged in redirect to /", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -44,7 +44,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -54,14 +54,14 @@ describe("EditUsername", () => {
 						<EditUsername />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 		// make sure it redirects to home page when not logged in
-		expect(window.location.pathname).toBe("/");
-		expect(window.location.pathname).not.toBe("/userinfo");
-	});
+		expect( window.location.pathname ).toBe( "/" );
+		expect( window.location.pathname ).not.toBe( "/userinfo" );
+	} );
 
-	test("navigates to delete account page", () => {
+	test( "navigates to delete account page", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -70,7 +70,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -80,18 +80,18 @@ describe("EditUsername", () => {
 						<EditUsername />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
-		act(() => {
+		act( () => {
 			// Simulate a click on the delete account button
-			const deleteAccountButton = screen.getByText("Delete Account");
+			const deleteAccountButton = screen.getByText( "Delete Account" );
 			deleteAccountButton.click();
-		});
-		expect(window.location.pathname).toBe("/deleteaccount");
-		expect(window.location.pathname).not.toBe("/editprofile");
-	});
+		} );
+		expect( window.location.pathname ).toBe( "/deleteaccount" );
+		expect( window.location.pathname ).not.toBe( "/editprofile" );
+	} );
 
-	test("input username allows typing", () => {
+	test( "input username allows typing", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -100,7 +100,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -110,26 +110,26 @@ describe("EditUsername", () => {
 						<EditUsername />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
 		//get the input element by its html id
-		const inputElement = screen.getByLabelText(/New Username/i) as HTMLInputElement;
+		const inputElement = screen.getByLabelText( /New Username/i ) as HTMLInputElement;
 		
-		fireEvent.change(inputElement, { target: { value: "newusername" } });
+		fireEvent.change( inputElement, { target: { value: "newusername" } } );
 
-		expect(inputElement.value).toBe("newusername");
-	});
+		expect( inputElement.value ).toBe( "newusername" );
+	} );
 
-	it("submits the form with new username", async () => {
+	it( "submits the form with new username", async () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
     
 		// Mock the fetch API call
-		global.fetch = jest.fn(() =>
+		global.fetch = jest.fn( () =>
 			Promise.resolve(
-				new Response(JSON.stringify({ success: true })),
-			),
+				new Response( JSON.stringify( { success: true } ) )
+			)
 		);
     
 		const mockUser = {
@@ -137,7 +137,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
-			accessToken: "mockAccessToken",
+			accessToken: "mockAccessToken"
 		};
     
 		render(
@@ -147,27 +147,27 @@ describe("EditUsername", () => {
 						<EditUsername />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
     
 		// Get the input and button elements
 
-		const inputElement = screen.getByTestId("usernameInput") as HTMLInputElement;
-		const changeUsernameButton = screen.getByText("Change Username");
-		fireEvent.change(inputElement, { target: { value: "testuser2" } });
-		expect(inputElement.value).toBe("testuser2");
-		fireEvent.click(changeUsernameButton);
+		const inputElement = screen.getByTestId( "usernameInput" ) as HTMLInputElement;
+		const changeUsernameButton = screen.getByText( "Change Username" );
+		fireEvent.change( inputElement, { target: { value: "testuser2" } } );
+		expect( inputElement.value ).toBe( "testuser2" );
+		fireEvent.click( changeUsernameButton );
       
 		// Wait for the fetch call to complete
-		await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
     
-		expect(global.fetch).toHaveBeenCalledWith(
+		expect( global.fetch ).toHaveBeenCalledWith(
 			"http://localhost:5000/api/users/testuser/username",
 			{
 				body: "{\"username\":\"testuser2\",\"userId\":\"1\"}",
 				headers: { "Content-Type": "application/json", "Authorization": "Bearer mockAccessToken" },
-				method: "PUT",
-			},
+				method: "PUT"
+			}
 		);
-	});
-});
+	} );
+} );

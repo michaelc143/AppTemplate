@@ -7,10 +7,10 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function UserInfo(): React.JSX.Element {
 
-	const { isLoggedIn } = useContext(AuthContext);
-	const { user } = useContext(UserContext);
+	const { isLoggedIn } = useContext( AuthContext );
+	const { user } = useContext( UserContext );
 
-	if (!isLoggedIn) {
+	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
 	}
 

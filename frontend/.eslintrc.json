@@ -26,8 +26,10 @@
     "default-case": "warn", // Enforce default case in switch statements
     "quotes": ["error", "double"], // Enforce double quotes
     "indent": ["error", "tab"], // Enforce tab indentation
-    "comma-dangle": ["error", "always-multiline"], // Enforce trailing commas in multiline objects and arrays
     "arrow-spacing": ["error", { "before": true, "after": true }], // Enforce spacing around arrow function arrows
-    "prefer-const": "warn" // Suggest using const for variables that are never reassigned
+    "comma-dangle": ["error", "never"], // Enforce trailing commas in multiline objects and arrays
+    "array-bracket-spacing":  ["error", "always"], // Enforce spacing inside array brackets
+    "space-in-parens": ["error", "always"], // Enforce spacing inside parentheses
+    "prefer-const": "error" // Suggest using const for variables that are never reassigned
   }
 }

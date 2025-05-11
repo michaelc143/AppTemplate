@@ -7,20 +7,20 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function Logout(): React.JSX.Element {
 
-	const { setIsLoggedIn } = useContext(AuthContext);
-	const { setUser } = useContext(UserContext);
+	const { setIsLoggedIn } = useContext( AuthContext );
+	const { setUser } = useContext( UserContext );
 	const navigate = useNavigate();
 
 	const logout = () => {
-		setIsLoggedIn(false);
-		setUser({
+		setIsLoggedIn( false );
+		setUser( {
 			userId: "",
 			username: "",
 			email: "",
 			dateJoined: "",
-			accessToken: "",
-		});
-		navigate("/");
+			accessToken: ""
+		} );
+		navigate( "/" );
 	};
 
 	return (

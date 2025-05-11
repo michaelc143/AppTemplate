@@ -7,43 +7,43 @@ import { ToastContext } from "../contexts/ToastContext";
 import { UserContext } from "../contexts/UserContext";
 
 export default function DeleteAccount(): React.JSX.Element {
-	const { user, setUser } = useContext(UserContext);
-	const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-	const { showToast } = useContext(ToastContext);
+	const { user, setUser } = useContext( UserContext );
+	const { isLoggedIn, setIsLoggedIn } = useContext( AuthContext );
+	const { showToast } = useContext( ToastContext );
 	const navigate = useNavigate();
 
-	if (!isLoggedIn) {
+	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
 	}
 
 	const deleteUser = async () => {
 		try {
-			const response = await fetch(`http://localhost:5000/api/users/${user.username}`, {
+			const response = await fetch( `http://localhost:5000/api/users/${user.username}`, {
 				headers: {
-					"Authorization": `Bearer ${user.accessToken}`,
+					"Authorization": `Bearer ${user.accessToken}`
 				},
-				method: "DELETE",
-			});
+				method: "DELETE"
+			} );
 
-			if(response.ok) {
-				setIsLoggedIn(false);
-				setUser({
+			if( response.ok ) {
+				setIsLoggedIn( false );
+				setUser( {
 					userId: "",
 					username: "",
 					email: "",
 					dateJoined: "",
-					accessToken: "",
-				});
-				showToast("User deleted successfully", "success");
-				navigate("/");
+					accessToken: ""
+				} );
+				showToast( "User deleted successfully", "success" );
+				navigate( "/" );
 			}
 
 			else {
-				showToast("Error deleting user", "error");
+				showToast( "Error deleting user", "error" );
 			}
 
-		} catch (err) {
-			showToast("Error connecting to db", "error");
+		} catch ( err ) {
+			showToast( "Error connecting to db", "error" );
 		}
 	};
 
