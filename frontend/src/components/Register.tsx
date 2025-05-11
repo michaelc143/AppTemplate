@@ -9,52 +9,52 @@ import { AuthResponse } from "../interfaces/APIResponseInterfaces";
 import { User } from "../interfaces/Interfaces";
 
 export default function Register(): React.JSX.Element {
-	const [username, setUsername] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
-	const { setIsLoggedIn } = useContext(AuthContext);
-	const { showToast } = useContext(ToastContext);
-	const { setUser } = useContext(UserContext);
+	const [ username, setUsername ] = useState<string>( "" );
+	const [ email, setEmail ] = useState<string>( "" );
+	const [ password, setPassword ] = useState<string>( "" );
+	const { setIsLoggedIn } = useContext( AuthContext );
+	const { showToast } = useContext( ToastContext );
+	const { setUser } = useContext( UserContext );
 	const navigate = useNavigate();
 
-	const handleSubmit = async (event: React.FormEvent) => {
+	const handleSubmit = async ( event: React.FormEvent ) => {
 		event.preventDefault();
     
-		if (!username || !email || !password) {
-			showToast("Please fill out all fields.", "error");
+		if ( !username || !email || !password ) {
+			showToast( "Please fill out all fields.", "error" );
 			return;
 		}
 		try {
-			const response = await fetch("http://localhost:5000/api/register", {
+			const response = await fetch( "http://localhost:5000/api/register", {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json",
+					"Content-Type": "application/json"
 				},
-				body: JSON.stringify({
+				body: JSON.stringify( {
 					username,
 					email,
-					password,
-				}),
-			});
+					password
+				} )
+			} );
 
 			const data: AuthResponse = await response.json();
 
-			if (response.ok) {
-				setIsLoggedIn(true);
-				setUser({
+			if ( response.ok ) {
+				setIsLoggedIn( true );
+				setUser( {
 					username: data.username,
 					email: data.email,
-					dateJoined: data.date_joined,
-				} as User);
-				showToast("Registered successfully!", "success");
-				navigate("/userinfo");
+					dateJoined: data.date_joined
+				} as User );
+				showToast( "Registered successfully!", "success" );
+				navigate( "/userinfo" );
 			} 
 			else {
-				showToast("Failed to register", "error");
+				showToast( "Failed to register", "error" );
 			}
 		}
-		catch (error) {
-			showToast("Error connecting to db", "error");
+		catch ( error ) {
+			showToast( "Error connecting to db", "error" );
 		}
 	};
 
@@ -68,15 +68,15 @@ export default function Register(): React.JSX.Element {
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<label htmlFor="username" className="sr-only">Username</label>
-							<input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+							<input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Username" value={username} onChange={( e ) => setUsername( e.target.value )} />
 						</div>
 						<div>
 							<label htmlFor="email" className="sr-only">Email</label>
-							<input id="email" name="email" type="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+							<input id="email" name="email" type="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Email" value={email} onChange={( e ) => setEmail( e.target.value )} />
 						</div>
 						<div>
 							<label htmlFor="password" className="sr-only">Password</label>
-							<input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+							<input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password" value={password} onChange={( e ) => setPassword( e.target.value )} />
 						</div>
 					</div>
 					<div>

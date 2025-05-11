@@ -4,6 +4,7 @@ export interface AuthResponse {
     message: string;
     username: string;
     user_id: string;
+    access_token: string;
 }
 
 export interface UsernameResponse {

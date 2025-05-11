@@ -7,8 +7,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import Logout from "../Logout";
 
-describe("Logout", () => {
-	test("renders logout button", () => {
+describe( "Logout", () => {
+	test( "renders logout button", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -17,6 +17,7 @@ describe("Logout", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -26,14 +27,14 @@ describe("Logout", () => {
 						<Logout />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(screen.getByText("Are you sure you want to logout?")).toBeInTheDocument();
-		expect(screen.getByText("Logout")).toBeInTheDocument();
-	});
+		expect( screen.getByText( "Are you sure you want to logout?" ) ).toBeInTheDocument();
+		expect( screen.getByText( "Logout" ) ).toBeInTheDocument();
+	} );
 
-	test("calls logout function on button click", () => {
+	test( "calls logout function on button click", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -42,6 +43,7 @@ describe("Logout", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -51,18 +53,18 @@ describe("Logout", () => {
 						<Logout />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		fireEvent.click(screen.getByText("Logout"));
+		fireEvent.click( screen.getByText( "Logout" ) );
 
-		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
-		expect(setUser).toHaveBeenCalledWith({
+		expect( setIsLoggedIn ).toHaveBeenCalledWith( false );
+		expect( setUser ).toHaveBeenCalledWith( {
 			userId: "",
 			username: "",
 			email: "",
-			dateJoined: "",
-		});
-		expect(window.location.pathname).toBe("/");
-	});
-});
+			dateJoined: ""
+		} );
+		expect( window.location.pathname ).toBe( "/" );
+	} );
+} );

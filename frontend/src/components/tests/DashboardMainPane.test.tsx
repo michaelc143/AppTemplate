@@ -7,8 +7,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import DashboardMainPane from "../Dashboard Components/DashboardMainPane";
 
-describe("DashboardMainPane", () => {
-	test("renders DashboardMainPane with user info when logged in", () => {
+describe( "DashboardMainPane", () => {
+	test( "renders DashboardMainPane with user info when logged in", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -17,6 +17,7 @@ describe("DashboardMainPane", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -26,14 +27,14 @@ describe("DashboardMainPane", () => {
 						<DashboardMainPane />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(screen.getByText(/Welcome to the app!/i)).toBeInTheDocument();
-		expect(screen.getByText(/Hello, testuser!/i)).toBeInTheDocument();
-	});
+		expect( screen.getByText( /Welcome to the app!/i ) ).toBeInTheDocument();
+		expect( screen.getByText( /Hello, testuser!/i ) ).toBeInTheDocument();
+	} );
 
-	test("redirects to home page when not logged in", () => {
+	test( "redirects to home page when not logged in", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
@@ -42,6 +43,7 @@ describe("DashboardMainPane", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
 		};
 
 		render(
@@ -51,9 +53,9 @@ describe("DashboardMainPane", () => {
 						<DashboardMainPane />
 					</UserContext.Provider>
 				</AuthContext.Provider>
-			</Router>,
+			</Router>
 		);
 
-		expect(window.location.pathname).toBe("/");
-	});
-});
+		expect( window.location.pathname ).toBe( "/" );
+	} );
+} );

@@ -8,13 +8,13 @@ import { ToastContext } from "../contexts/ToastContext";
 
 export default function EditUsername(): React.JSX.Element {
 
-	const { isLoggedIn } = useContext(AuthContext);
-	const { user, setUser } = useContext(UserContext);
-	const { showToast } = useContext(ToastContext);
+	const { isLoggedIn } = useContext( AuthContext );
+	const { user, setUser } = useContext( UserContext );
+	const { showToast } = useContext( ToastContext );
 	
-	const [newUsername, setNewUsername] = useState<string>("");
+	const [ newUsername, setNewUsername ] = useState<string>( "" );
 
-	if (!isLoggedIn) {
+	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
 	}
 
@@ -24,38 +24,40 @@ export default function EditUsername(): React.JSX.Element {
 	 * @return {void}
 	 */
 	const handleChangeUsername = async () => {
-		if (!isLoggedIn || !user) {
-			showToast("You must be logged in to change your username", "error");
+		if ( !isLoggedIn || !user ) {
+			showToast( "You must be logged in to change your username", "error" );
 			return;
 		}
 
-		if (!newUsername) {
-			showToast("Please enter a username", "error");
+		if ( !newUsername ) {
+			showToast( "Please enter a username", "error" );
 			return;
 		}
 		try {
-			const response = await fetch(`http://localhost:5000/api/users/${user.userId}/username`, {
+			const response = await fetch( `http://localhost:5000/api/users/${user.username}/username`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
+					"Authorization": `Bearer ${user.accessToken}`
 				},
-				body: JSON.stringify({
+				body: JSON.stringify( {
 					username: newUsername,
-				}),
-			});
+					userId: user.userId
+				} )
+			} );
 
-			if (response.ok) {
-				showToast("Username changed successfully!", "success");
+			if ( response.ok ) {
+				showToast( "Username changed successfully!", "success" );
 				const updatedUser = { ...user, username: newUsername };
-				setUser(updatedUser);
-				setNewUsername(""); // Clear the input field after updating
+				setUser( updatedUser );
+				setNewUsername( "" ); // Clear the input field after updating
 			} 
 			else {
-				showToast("Failed to change username", "error");
+				showToast( "Failed to change username", "error" );
 			}
 		}
-		catch (error) {
-			showToast("Error connecting to db", "error");
+		catch ( error ) {
+			showToast( "Error connecting to db", "error" );
 		}
 	};
 
@@ -73,7 +75,7 @@ export default function EditUsername(): React.JSX.Element {
 					data-testid="usernameInput"
 					type="text"
 					value={newUsername}
-					onChange={(e) => setNewUsername(e.target.value)}
+					onChange={( e ) => setNewUsername( e.target.value )}
 					className="bg-gray-200 text-gray-700 border border-gray-300 rounded-lg py-2 px-2 placeholder: text-center"
 					placeholder="Enter new username"
 				/>

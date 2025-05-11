@@ -6,9 +6,9 @@ import { AuthContext } from "../contexts/AuthContext";
 
 export default function EditProfile(): React.JSX.Element {
 
-	const { isLoggedIn } = useContext(AuthContext);
+	const { isLoggedIn } = useContext( AuthContext );
 
-	if (!isLoggedIn) {
+	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
 	}
 
