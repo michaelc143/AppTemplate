@@ -39,7 +39,7 @@ export default function Login(): React.JSX.Element {
 					accessToken: data.access_token
 				} as User );
 				showToast( "Logged in successfully!", "success" );
-				navigate( "/dashboard" ); //todo: change to dashboard
+				navigate( "/dashboard" );
 			}
 			else {
 				showToast( "Error logging in", "error" );
