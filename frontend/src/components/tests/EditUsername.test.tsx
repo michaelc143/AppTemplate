@@ -17,6 +17,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -43,6 +44,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -68,6 +70,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -97,6 +100,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -133,6 +137,7 @@ describe("EditUsername", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
     
 		render(
@@ -157,10 +162,10 @@ describe("EditUsername", () => {
 		await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
     
 		expect(global.fetch).toHaveBeenCalledWith(
-			"http://localhost:5000/api/users/1/username",
+			"http://localhost:5000/api/users/testuser/username",
 			{
-				body: "{\"username\":\"testuser2\"}",
-				headers: { "Content-Type": "application/json" },
+				body: "{\"username\":\"testuser2\",\"userId\":\"1\"}",
+				headers: { "Content-Type": "application/json", "Authorization": "Bearer mockAccessToken" },
 				method: "PUT",
 			},
 		);

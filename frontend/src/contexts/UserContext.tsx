@@ -10,6 +10,7 @@ export const UserContext = createContext<{
 		username: "",
 		email: "",
 		dateJoined: "",
+		accessToken: "",
 	},
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	setUser: () => {},
@@ -25,6 +26,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 		username: "",
 		email: "",
 		dateJoined: "",
+		accessToken: "",
 	});
 
 	return (

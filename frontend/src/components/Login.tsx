@@ -36,6 +36,7 @@ export default function Login(): React.JSX.Element {
 					username: data.username,
 					email: data.email,
 					dateJoined: data.date_joined,
+					accessToken: data.access_token,
 				} as User);
 				showToast("Logged in successfully!", "success");
 				navigate("/dashboard"); //todo: change to dashboard

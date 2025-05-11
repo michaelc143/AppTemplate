@@ -19,6 +19,7 @@ describe("Login", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -46,6 +47,7 @@ describe("Login", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -86,6 +88,7 @@ describe("Login", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(

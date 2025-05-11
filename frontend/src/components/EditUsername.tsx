@@ -34,13 +34,15 @@ export default function EditUsername(): React.JSX.Element {
 			return;
 		}
 		try {
-			const response = await fetch(`http://localhost:5000/api/users/${user.userId}/username`, {
+			const response = await fetch(`http://localhost:5000/api/users/${user.username}/username`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
+					"Authorization": `Bearer ${user.accessToken}`,
 				},
 				body: JSON.stringify({
 					username: newUsername,
+					userId: user.userId,
 				}),
 			});
 

@@ -26,6 +26,7 @@ describe("DeleteAccount", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -45,7 +46,7 @@ describe("DeleteAccount", () => {
 
 		await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
 
-		expect(global.fetch).toHaveBeenCalledWith("http://localhost:5000/api/users/testuser", { method: "DELETE" });
+		expect(global.fetch).toHaveBeenCalledWith("http://localhost:5000/api/users/testuser", { method: "DELETE", headers: {"Authorization": "Bearer mockAccessToken"} });
 
 		expect(setIsLoggedIn).toHaveBeenCalledWith(false);
 		expect(setUser).toHaveBeenCalledWith({
@@ -53,6 +54,7 @@ describe("DeleteAccount", () => {
 			username: "",
 			email: "",
 			dateJoined: "",
+			accessToken: "",
 		});
 		expect(showToast).toHaveBeenCalledWith("User deleted successfully", "success");
 
@@ -68,6 +70,7 @@ describe("DeleteAccount", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(

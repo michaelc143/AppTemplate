@@ -19,6 +19,9 @@ export default function DeleteAccount(): React.JSX.Element {
 	const deleteUser = async () => {
 		try {
 			const response = await fetch(`http://localhost:5000/api/users/${user.username}`, {
+				headers: {
+					"Authorization": `Bearer ${user.accessToken}`,
+				},
 				method: "DELETE",
 			});
 
@@ -29,6 +32,7 @@ export default function DeleteAccount(): React.JSX.Element {
 					username: "",
 					email: "",
 					dateJoined: "",
+					accessToken: "",
 				});
 				showToast("User deleted successfully", "success");
 				navigate("/");
