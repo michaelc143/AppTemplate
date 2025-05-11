@@ -18,6 +18,7 @@ describe("Register", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
@@ -60,6 +61,7 @@ describe("Register", () => {
 			username: "testuser",
 			email: "testuser@example.com",
 			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken",
 		};
 
 		render(
