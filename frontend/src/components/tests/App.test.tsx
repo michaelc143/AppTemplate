@@ -37,7 +37,8 @@ describe( "Nav", () => {
 		const loginButton = screen.getByRole( "link", { name: /Login/i } );
 		fireEvent.click( loginButton );
 		expect( window.location.pathname ).toBe( "/login" );
-		const homeButton = screen.getByRole( "link", { name: /Back to Home/i } ); // have to nav back to home to run register test
+		// have to nav back to home to run register test
+		const homeButton = screen.getByRole( "link", { name: /Back to Home/i } );
 		fireEvent.click( homeButton );
 	} );
 

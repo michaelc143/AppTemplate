@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { Navigate, Link } from "react-router-dom";
 
@@ -9,6 +9,42 @@ export default function UserInfo(): React.JSX.Element {
 
 	const { isLoggedIn } = useContext( AuthContext );
 	const { user } = useContext( UserContext );
+	
+	if ( !isLoggedIn ) {
+		return <Navigate to="/" />;
+	}
+
+	const [ followers, setFollowers ] = useState<string[]>( [] );
+	const [ following, setFollowing ] = useState<string[]>( [] );
+
+	// useEffect( () => {
+	// 	const fetchFollowers = async () => {
+	// 		const response = await fetch( `http://localhost:5000/api/users/${ user.username }/followers` );
+	// 		const data = await response.json();
+
+	// 		if ( !response.ok ) {
+	// 			console.error( "Error fetching following data:", data );
+	// 			return;
+	// 		}
+
+	// 		setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
+	// 	};
+
+	// 	const fetchFollowing = async () => {
+	// 		const response = await fetch( `http://localhost:5000/api/users/${ user.username }/following` );
+	// 		const data = await response.json();
+
+	// 		if ( !response.ok ) {
+	// 			console.error( "Error fetching following data:", data );
+	// 			return;
+	// 		}
+
+	// 		setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
+	// 	};
+
+	// 	fetchFollowers();
+	// 	fetchFollowing();
+	// }, [ user.username ] );
 
 	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
@@ -20,6 +56,18 @@ export default function UserInfo(): React.JSX.Element {
 			<div className="text-2xl text-white">Username: {user.username}</div>
 			<div className="text-2xl text-white">Email: {user.email}</div>
 			<div className="text-2xl text-white">Date Joined: {user.dateJoined}</div>
+			<div className="text-2xl text-white">Followers: {followers.length}</div>
+			<ul className="text-white">
+				{followers.length !== 0 && followers.map( ( follower ) => (
+					<li key={follower}>{follower}</li>
+				) )}
+			</ul>
+			<div className="text-2xl text-white">Following: {following.length}</div>
+			<ul className="text-white">
+				{following.length !== 0 && following.map( ( followed ) => (
+					<li key={followed}>{followed}</li>
+				) )}
+			</ul>
 			<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-4">
 				<Link to="/editprofile"> Edit Profile</Link>
 			</button>

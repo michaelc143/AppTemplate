@@ -18,14 +18,14 @@ export default function DeleteAccount(): React.JSX.Element {
 
 	const deleteUser = async () => {
 		try {
-			const response = await fetch( `http://localhost:5000/api/users/${user.username}`, {
+			const response = await fetch( `http://localhost:5000/api/users/${ user.username }`, {
 				headers: {
-					"Authorization": `Bearer ${user.accessToken}`
+					"Authorization": `Bearer ${ user.accessToken }`
 				},
 				method: "DELETE"
 			} );
 
-			if( response.ok ) {
+			if ( response.ok ) {
 				setIsLoggedIn( false );
 				setUser( {
 					userId: "",

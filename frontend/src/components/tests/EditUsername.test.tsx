@@ -113,7 +113,7 @@ describe( "EditUsername", () => {
 			</Router>
 		);
 
-		//get the input element by its html id
+		// get the input element by its html id
 		const inputElement = screen.getByLabelText( /New Username/i ) as HTMLInputElement;
 		
 		fireEvent.change( inputElement, { target: { value: "newusername" } } );

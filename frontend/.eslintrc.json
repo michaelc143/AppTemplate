@@ -30,6 +30,19 @@
     "comma-dangle": ["error", "never"], // Enforce trailing commas in multiline objects and arrays
     "array-bracket-spacing":  ["error", "always"], // Enforce spacing inside array brackets
     "space-in-parens": ["error", "always"], // Enforce spacing inside parentheses
-    "prefer-const": "error" // Suggest using const for variables that are never reassigned
+    "prefer-const": "error", // Suggest using const for variables that are never reassigned
+    "for-direction": "error", // Enforce that for loop update clause moves the counter in the right direction
+    "require-await": "error", // Disallow async functions which have no await expression
+    "object-curly-newline": ["error", { "consistent": true }], // Enforce consistent line breaks inside braces
+    "line-comment-position": ["error", { "position": "above" }], // Enforce line comments to be above the code
+    "no-dupe-keys": "error", // Disallow duplicate keys in object literals
+    "no-multi-spaces": "error", // Disallow multiple spaces
+    "vars-on-top": "error", // Enforce variables to be declared at the top of their scope
+    "keyword-spacing": ["error", { "before": true, "after": true }], // Enforce spacing around keywords
+    "space-before-blocks": ["error", "always"], // Enforce space before blocks
+    "spaced-comment": ["error", "always", { "markers": ["/"] }], // Enforce space after comment markers
+    "no-multiple-empty-lines": ["error", { "max": 1 }], // Disallow multiple empty lines
+    "switch-colon-spacing": ["error", { "after": false, "before": true }], // Enforce spacing around colons in switch statements
+    "template-curly-spacing": ["error", "always"] // Disallow spacing inside template string literals
   }
 }
