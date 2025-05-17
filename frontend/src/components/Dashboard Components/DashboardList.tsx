@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import { ToastContext } from "../../contexts/ToastContext";
 import { Navigate } from "react-router-dom";
+import Follower from "./Follower";
 
 export default function DashboardList(): React.JSX.Element {
 
@@ -40,12 +41,13 @@ export default function DashboardList(): React.JSX.Element {
 			return;
 		};
 		const fetchFollowing = async () => {
-			const response = await fetch( `${ process.env.REACT_APP_API_URL }users/${ user.username }/following` );
+			const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/following` );
 			const data = await response.json();
 
 			switch ( response.status ) {
 			case 200 :
-				setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );					break;
+				setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
+				break;
 			case 404 :
 				showToast( "Not Found: The requested resource could not be found.", "error" );
 				break;
@@ -86,7 +88,9 @@ export default function DashboardList(): React.JSX.Element {
 							<ul className="text-white">
 								<li className="text-2xl">Followers: {followers.length}</li>
 								{followers.map( ( follower, index ) => (
-									<li key={index} className="text-xl">{follower}</li>
+									<li key={index} className="text-xl">
+										<Follower username={follower} />
+									</li>
 								) )}
 							</ul>
 							<ul className="text-white">

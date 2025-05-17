@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { ToastContext } from "../../contexts/ToastContext";
@@ -36,6 +36,33 @@ describe( "Login", () => {
 
 		expect( screen.getByLabelText( /Username/i ) as HTMLInputElement ).toBeInTheDocument();
 		expect( screen.getByLabelText( /Password/i ) as HTMLInputElement ).toBeInTheDocument();
+	} );
+	
+	it( "redirects to dashboard if already logged in", async () => {
+		const mockUser = {
+			userId: "1",
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
+		};
+
+		await act( () => {
+			render(
+				<Router>
+					<AuthContext.Provider value={{ isLoggedIn: true, setIsLoggedIn: jest.fn() }}>
+						<UserContext.Provider value={{ user: mockUser, setUser: jest.fn() }}>
+							<ToastContext.Provider value={{ showToast: jest.fn() }}>
+								<Login />
+							</ToastContext.Provider>
+						</UserContext.Provider>
+					</AuthContext.Provider>
+				</Router>
+			);
+		} );
+
+		screen.debug();
+		expect( window.location.pathname ).toBe( "/dashboard" );
 	} );
 
 	test( "Login form allows typing", () => {

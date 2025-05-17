@@ -18,15 +18,8 @@ def get_user(username):
         if current_user != data.get('username'):
             return jsonify({'message': 'You are not authorized to view this user'}), 403
 
-        # Get the user ID from the request
-        if 'user_id' in data:
-            user_id = data.get('user_id')
-        else:
-            # If user_id is not provided, return an error
-            return jsonify({'message': 'User ID is required'}), 400
-
-        # Find the user by ID
-        user = User.query.get(user_id)
+        # Find the user by username
+        user = User.query.filter_by(username=username).first()
         if user is None:
             return jsonify({'message': 'User not found'}), 404
 

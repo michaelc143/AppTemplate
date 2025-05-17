@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../contexts/AuthContext";
 import { ToastContext } from "../contexts/ToastContext";
@@ -10,7 +10,7 @@ import { AuthResponse } from "../interfaces/APIResponseInterfaces";
 export default function Login(): React.JSX.Element {
 	const [ username, setUsername ] = useState<string>( "" );
 	const [ password, setPassword ] = useState<string>( "" );
-	const { setIsLoggedIn } = useContext( AuthContext );
+	const { isLoggedIn, setIsLoggedIn } = useContext( AuthContext );
 	const { setUser } = useContext( UserContext );
 	const { showToast } = useContext( ToastContext );
 
@@ -49,6 +49,11 @@ export default function Login(): React.JSX.Element {
 			showToast( "Error connecting to db", "error" );
 		}
 	};
+
+	if ( isLoggedIn )
+	{
+		return <Navigate to="/dashboard" />;
+	}
 
 	return (
 		<div className="my-16 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
