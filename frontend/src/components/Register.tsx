@@ -1,4 +1,5 @@
 import React from "react";
+import UserLib from "../helpers/Lib_User";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,13 +18,35 @@ export default function Register(): React.JSX.Element {
 	const { setUser } = useContext( UserContext );
 	const navigate = useNavigate();
 
+	const checkRegistrationData = ( username: string, email: string, password: string ) => {
+
+		if ( !UserLib.isValidUsername( username ) ) {
+			showToast( "Username must be 3-20 characters long and can only contain letters, numbers, and underscores.", "error" );
+			return false;
+		}
+		if ( !UserLib.isValidPassword( password ) ) {
+			showToast( "Password must be at least 8 characters long and contain at least one letter, one number, and one special character.", "error" );
+			return false;
+		}
+		if ( !UserLib.isValidEmail( email ) ) {
+			showToast( "Invalid email format.", "error" );
+			return false;
+		}
+		return true;
+	};
+
 	const handleSubmit = async ( event: React.FormEvent ) => {
 		event.preventDefault();
-    
+
 		if ( !username || !email || !password ) {
 			showToast( "Please fill out all fields.", "error" );
 			return;
 		}
+
+		if ( !checkRegistrationData( username, email, password ) ) {
+			return;
+		}
+
 		try {
 			const response = await fetch( "http://localhost:5000/api/register", {
 				method: "POST",
@@ -64,7 +87,7 @@ export default function Register(): React.JSX.Element {
 				<div>
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
 				</div>
-				<form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+				<form className="mt-8 space-y-6" onSubmit={handleSubmit} role="form">
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<label htmlFor="username" className="sr-only">Username</label>
@@ -80,9 +103,7 @@ export default function Register(): React.JSX.Element {
 						</div>
 					</div>
 					<div>
-						<button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Register
-						</button>
+						<button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Register</button>
 					</div>
 				</form>
 				<div className="mt-6 flex justify-between">
