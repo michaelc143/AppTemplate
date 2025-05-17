@@ -3,8 +3,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { AuthContext } from "../../contexts/AuthContext";
-import Dashboard from "../Dashboard Components/Dashboard";
+import { AuthContext } from "../../../contexts/AuthContext";
+import Dashboard from "../../Dashboard Components/Dashboard";
 
 describe( "Dashboard", () => {
 	test( "renders Dashboard when logged in", async () => {

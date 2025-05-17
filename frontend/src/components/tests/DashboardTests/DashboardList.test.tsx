@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { render, screen, act } from "@testing-library/react";
-import { AuthContext } from "../../contexts/AuthContext";
-import DashboardList from "../Dashboard Components/DashboardList";
+import { AuthContext } from "../../../contexts/AuthContext";
+import DashboardList from "../../Dashboard Components/DashboardList";
 
 describe( "DashboardList", () => {
 
