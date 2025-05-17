@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Dashboard from "../Dashboard Components/Dashboard";
 
 describe( "Dashboard", () => {
-	test( "renders Dashboard when logged in", () => {
+	test( "renders Dashboard when logged in", async () => {
 		const setIsLoggedIn = jest.fn();
 
 		render(
@@ -18,8 +18,12 @@ describe( "Dashboard", () => {
 			</Router>
 		);
 
-		expect( screen.getByText( /Main functions/i ) ).toBeInTheDocument();
-		expect( screen.getByText( /Welcome to the app!/i ) ).toBeInTheDocument();
+		// Use findByText to wait for the text to appear
+		const mainFunctionsText = await screen.findByText( /Main functions/i );
+		expect( mainFunctionsText ).toBeInTheDocument();
+	
+		const welcomeText = await screen.findByText( /Welcome to the app!/i );
+		expect( welcomeText ).toBeInTheDocument();
 	} );
 
 	test( "redirects to home page when not logged in", () => {

@@ -113,7 +113,7 @@ describe( "Login", () => {
 
 		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
 
-		expect( global.fetch ).toHaveBeenCalledWith( "http://localhost:5000/api/login",
+		expect( global.fetch ).toHaveBeenCalledWith( `${ process.env.REACT_APP_API_URL }/login`,
 			{"body": "{\"username\":\"testuser\",\"password\":\"testpassword\"}", "headers": {"Content-Type": "application/json"}, "method": "POST"} );
 
 		expect( usernameInput.value ).toBe( "testuser" );

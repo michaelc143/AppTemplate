@@ -46,7 +46,7 @@ describe( "DeleteAccount", () => {
 
 		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
 
-		expect( global.fetch ).toHaveBeenCalledWith( "http://localhost:5000/api/users/testuser", { method: "DELETE", headers: {"Authorization": "Bearer mockAccessToken"} } );
+		expect( global.fetch ).toHaveBeenCalledWith( `${ process.env.REACT_APP_API_URL }/users/testuser`, { method: "DELETE", headers: {"Authorization": "Bearer mockAccessToken"} } );
 
 		expect( setIsLoggedIn ).toHaveBeenCalledWith( false );
 		expect( setUser ).toHaveBeenCalledWith( {

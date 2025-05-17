@@ -15,7 +15,7 @@ def get_user(username):
         data = request.get_json()
 
         current_user = get_jwt_identity()
-        if current_user != data.username:
+        if current_user != data.get('username'):
             return jsonify({'message': 'You are not authorized to view this user'}), 403
 
         # Get the user ID from the request
@@ -154,7 +154,7 @@ def edit_username(username):
         current_user = get_jwt_identity()
         print(f"Current user: {current_user}")
 
-        current_user = get_jwt_identity()
+
         if current_user != username:
             return jsonify({'message': f'You are not authorized to edit this user {current_user}'}), 403
 
@@ -163,8 +163,9 @@ def edit_username(username):
         if not new_username:
             return jsonify({'message': 'New username is required'}), 400
         
-        if 'user_id' in data:
+        if 'userId' in data:
             user_id = data.get('userId')
+
         else:
             # If user_id is not provided, return an error
             return jsonify({'message': 'User ID is required'}), 400
@@ -199,8 +200,11 @@ def follow_user(username):
     """ Follow a user """
     try:
         current_user = get_jwt_identity()
-        if current_user != username:
+        data = request.get_json()
+
+        if current_user != data.get('username'):
             return jsonify({'message': 'You are not authorized to follow this user'}), 403
+
         user_to_follow = User.query.filter_by(username=username).first()
 
         if user_to_follow is None:
@@ -227,9 +231,14 @@ def unfollow_user(username):
     """ Unfollow a user """
     try:
         current_user = get_jwt_identity()
+        data = request.get_json()
+
+        if current_user != data.get('username'):
+            return jsonify({'message': 'You are not authorized to unfollow this user'}), 403
+
         if current_user == username:
             return jsonify({'message': 'You cannot unfollow yourself'}), 400
-        
+
         user_to_unfollow = User.query.filter_by(username=username).first()
 
         if user_to_unfollow is None:
