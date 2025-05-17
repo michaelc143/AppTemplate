@@ -6,13 +6,14 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import Logout from "../Logout";
+import { User } from "../../interfaces/Interfaces";
 
 describe( "Logout", () => {
 	test( "renders logout button", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
-		const mockUser = {
+		const mockUser: User = {
 			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
@@ -38,7 +39,7 @@ describe( "Logout", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
 
-		const mockUser = {
+		const mockUser: User = {
 			userId: "1",
 			username: "testuser",
 			email: "testuser@example.com",
@@ -63,7 +64,8 @@ describe( "Logout", () => {
 			userId: "",
 			username: "",
 			email: "",
-			dateJoined: ""
+			dateJoined: "",
+			accessToken: ""
 		} );
 		expect( window.location.pathname ).toBe( "/" );
 	} );

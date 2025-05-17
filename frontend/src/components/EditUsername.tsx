@@ -34,11 +34,11 @@ export default function EditUsername(): React.JSX.Element {
 			return;
 		}
 		try {
-			const response = await fetch( `http://localhost:5000/api/users/${user.username}/username`, {
+			const response = await fetch( `http://localhost:5000/api/users/${ user.username }/username`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${user.accessToken}`
+					"Authorization": `Bearer ${ user.accessToken }`
 				},
 				body: JSON.stringify( {
 					username: newUsername,
@@ -49,8 +49,9 @@ export default function EditUsername(): React.JSX.Element {
 			if ( response.ok ) {
 				showToast( "Username changed successfully!", "success" );
 				const updatedUser = { ...user, username: newUsername };
+				setNewUsername( "" );
+				// Clear the input field after updating
 				setUser( updatedUser );
-				setNewUsername( "" ); // Clear the input field after updating
 			} 
 			else {
 				showToast( "Failed to change username", "error" );
