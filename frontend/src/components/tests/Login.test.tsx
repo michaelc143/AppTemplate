@@ -184,4 +184,42 @@ describe( "Login", () => {
 		expect( usernameInput.value ).toBe( "testuser" );
 		expect( passwordInput.value ).toBe( "testpassword" );
 	} );
+	
+	it( "shows toast on fetch/network error", async () => {
+		global.fetch = jest.fn( () => Promise.reject( new Error( "Network error" ) ) );
+		const setIsLoggedIn = jest.fn();
+		const setUser = jest.fn();
+		const showToast = jest.fn();
+
+		const mockUser = {
+			userId: "1",
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
+		};
+
+		render(
+			<Router>
+				<AuthContext.Provider value={{ isLoggedIn: false, setIsLoggedIn }}>
+					<UserContext.Provider value={{ user: mockUser, setUser: setUser }}>
+						<ToastContext.Provider value={{ showToast }}>
+							<Login />
+						</ToastContext.Provider>
+					</UserContext.Provider>
+				</AuthContext.Provider>
+			</Router>
+		);
+
+		const usernameInput = screen.getByLabelText( "Username" ) as HTMLInputElement;
+		const passwordInput = screen.getByLabelText( "Password" ) as HTMLInputElement;
+		const submitButton = screen.getByRole( "button", { name: /Login/i } ) as HTMLButtonElement;
+
+		fireEvent.change( usernameInput, { target: { value: "testuser" } } );
+		fireEvent.change( passwordInput, { target: { value: "testpassword" } } );
+		await act( () => { fireEvent.click( submitButton ); } );
+		await waitFor( () => {
+			expect( showToast ).toHaveBeenCalledWith( "Error connecting to db", "error" );
+		} );
+	} );
 } );
