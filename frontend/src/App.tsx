@@ -13,6 +13,7 @@ import DeleteAccount from "./components/DeleteAccount";
 import EditProfile from "./components/EditProfile";
 import EditUsername from "./components/EditUsername";
 import Dashboard from "./components/Dashboard Components/Dashboard";
+import UserSearchResults from "./components/UserSearchResults";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import { UserProvider } from "./contexts/UserContext";
@@ -36,6 +37,7 @@ function App() {
 							<Route path='/editprofile' element={<EditProfile />} />
 							<Route path='/editusername' element={<EditUsername />} />
 							<Route path='/dashboard' element={<Dashboard />} />
+							<Route path="/search" element={<UserSearchResults />} />
 							<Route path='*' element={<PageNotFound />} />
 						</Routes>
 					</Router>

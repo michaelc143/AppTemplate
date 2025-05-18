@@ -272,6 +272,24 @@ def get_following(username):
     except sqlalchemy.exc.SQLAlchemyError:
         return jsonify({'message': 'Internal server error'}), 500
 
+@api.route('/users/search', methods=['GET'])
+def search_users():
+    """Search users by username (partial match)"""
+    try:
+        query = request.args.get('q', '')
+        if not query:
+            return jsonify({'users': []}), 404
+        users = User.query.filter(User.username.ilike(f"%{query}%")).all()
+        results = [{
+            'username': u.username,
+            'id': u.id,
+            'email': u.email,
+            'date_joined': str(u.created_at)
+        } for u in users]
+        return jsonify({'users': results}), 200
+    except sqlalchemy.exc.SQLAlchemyError:
+        return jsonify({'message': 'Internal server error'}), 500
+
 @api.route('/', methods=['GET'])
 def test():
     """ Test message to ensure the API is working """
