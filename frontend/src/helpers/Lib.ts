@@ -132,19 +132,19 @@ const Lib = {
 
 	/**
 	 * Formats a date string into a human-readable format.
-	 * @param dateString - The date string to format.
-	 * @returns The formatted date string.
+	 * @param {String} dateString - The date string to format.
+	 * @returns {String} The formatted date string or "Invalid date" if the input is not a valid date.
 	 */
-	formatDate: ( dateString: string ): string => {
-		const options: Intl.DateTimeFormatOptions = {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit"
-		};
-		return new Date( dateString ).toLocaleString( undefined, options );
+	formatDate: function ( dateStr: string ): string {
+		const date = new Date( dateStr );
+		if ( isNaN( date.getTime() ) ) {
+			return "Invalid date";
+		}
+		return new Intl.DateTimeFormat( "en-US", {
+			timeZone: "UTC",
+			dateStyle: "short",
+			timeStyle: "medium"
+		} ).format( date );
 	},
 
 	/**

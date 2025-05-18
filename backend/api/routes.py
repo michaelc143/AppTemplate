@@ -12,12 +12,6 @@ api = Blueprint('api', __name__)
 def get_user(username):
     """ Get a user by ID """
     try:
-        data = request.get_json()
-
-        current_user = get_jwt_identity()
-        if current_user != data.get('username'):
-            return jsonify({'message': 'You are not authorized to view this user'}), 403
-
         # Find the user by username
         user = User.query.filter_by(username=username).first()
         if user is None:

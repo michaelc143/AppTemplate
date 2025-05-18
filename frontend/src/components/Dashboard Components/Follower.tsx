@@ -24,8 +24,7 @@ export default function Follower( { username }: { username: string } ): React.JS
 			const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ username }`, {
 				method: "GET",
 				headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${ user.accessToken }`
+					"Content-Type": "application/json"
 				}
 			} );
 

@@ -46,6 +46,8 @@ npm start
 
 To test the frontend, run the following command: `npm test`. This requires that `npm install` is ran within the `/frontend` folder beforehand so that all testing modules are imported.
 
+To test the frontend while getting logs on each test, run the following command: `npm test -- --watchAll --verbose`.
+
 ### Backend
 
 On first run, run the following commands to start the backend on its own:

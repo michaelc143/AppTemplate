@@ -1,4 +1,4 @@
-import Lib from "./Lib";
+import Lib from "../../../helpers/Lib";
 
 describe( "Lib.User", () => {
 	test( "isValidUsername returns true for valid usernames", () => {
@@ -77,7 +77,9 @@ describe( "Lib", () => {
 	test( "formatDate formats a date string into a human-readable format", () => {
 		const date = new Date( "2023-10-01T12:00:00Z" );
 		const formattedDate = Lib.formatDate( date.toISOString() );
-		expect( formattedDate ).toBe( "10/01/2023, 07:00:00 AM" );
+		expect( formattedDate ).toBe( "10/1/23, 12:00:00 PM" );
+		const invalidDate = "invalid-date";
+		expect( Lib.formatDate( invalidDate ) ).toBe( "Invalid date" );
 	} );
     
 	test( "randomInt generates a random integer between min and max", () => {

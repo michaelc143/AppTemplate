@@ -12,9 +12,13 @@ Runs hot-refreshes
 
 Runs all tests in the /tests folder.
 
-## npm test -- --coverage
+## `npm test -- --coverage`
 
 Runs all tests in the /tests folder and generates a coverage report.
+
+## `npm test -- --watchAll --verbose`
+
+Runs all tests int the /tests folder and keeps testing module open with logs for each test.
 
 ## `npm run build`
 
