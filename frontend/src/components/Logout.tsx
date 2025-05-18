@@ -4,12 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../contexts/AuthContext";
 import { UserContext } from "../contexts/UserContext";
+import { Navigate } from "react-router-dom";
 
 export default function Logout(): React.JSX.Element {
 
-	const { setIsLoggedIn } = useContext( AuthContext );
+	const { isLoggedIn, setIsLoggedIn } = useContext( AuthContext );
 	const { setUser } = useContext( UserContext );
 	const navigate = useNavigate();
+
+	if ( !isLoggedIn ) {
+		return <Navigate to="/" />;
+	}
 
 	const logout = () => {
 		setIsLoggedIn( false );

@@ -6,8 +6,9 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { ToastContext } from "../../contexts/ToastContext";
 import type { User } from "../../interfaces/Interfaces";
+import { FollowerProps } from "../../interfaces/Props";
 
-export default function Follower( { username }: { username: string } ): React.JSX.Element {
+export default function Follower( { username }: FollowerProps ): React.JSX.Element {
 	const { isLoggedIn } = useContext( AuthContext );
 	const { user } = useContext( UserContext );
 	const { showToast } = useContext( ToastContext );
