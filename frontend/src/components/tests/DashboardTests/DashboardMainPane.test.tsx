@@ -3,9 +3,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { AuthContext } from "../../contexts/AuthContext";
-import { UserContext } from "../../contexts/UserContext";
-import DashboardMainPane from "../Dashboard Components/DashboardMainPane";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { UserContext } from "../../../contexts/UserContext";
+import DashboardMainPane from "../../Dashboard Components/DashboardMainPane";
 
 describe( "DashboardMainPane", () => {
 	test( "renders DashboardMainPane with user info when logged in", () => {

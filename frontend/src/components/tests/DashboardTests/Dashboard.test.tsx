@@ -3,22 +3,27 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { AuthContext } from "../../contexts/AuthContext";
-import DashboardList from "../Dashboard Components/DashboardList";
+import { AuthContext } from "../../../contexts/AuthContext";
+import Dashboard from "../../Dashboard Components/Dashboard";
 
-describe( "DashboardList", () => {
-	test( "renders DashboardList when logged in", () => {
+describe( "Dashboard", () => {
+	test( "renders Dashboard when logged in", async () => {
 		const setIsLoggedIn = jest.fn();
 
 		render(
 			<Router>
 				<AuthContext.Provider value={{ isLoggedIn: true, setIsLoggedIn: setIsLoggedIn }}>
-					<DashboardList />
+					<Dashboard />
 				</AuthContext.Provider>
 			</Router>
 		);
 
-		expect( screen.getByText( /Main functions/i ) ).toBeInTheDocument();
+		// Use findByText to wait for the text to appear
+		const mainFunctionsText = await screen.findByText( /Main functions/i );
+		expect( mainFunctionsText ).toBeInTheDocument();
+	
+		const welcomeText = await screen.findByText( /Welcome to the app!/i );
+		expect( welcomeText ).toBeInTheDocument();
 	} );
 
 	test( "redirects to home page when not logged in", () => {
@@ -27,7 +32,7 @@ describe( "DashboardList", () => {
 		render(
 			<Router>
 				<AuthContext.Provider value={{ isLoggedIn: false, setIsLoggedIn: setIsLoggedIn }}>
-					<DashboardList />
+					<Dashboard />
 				</AuthContext.Provider>
 			</Router>
 		);

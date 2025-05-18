@@ -19,7 +19,7 @@ export default function UserInfo(): React.JSX.Element {
 
 	// useEffect( () => {
 	// 	const fetchFollowers = async () => {
-	// 		const response = await fetch( `http://localhost:5000/api/users/${ user.username }/followers` );
+	// 		const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/followers` );
 	// 		const data = await response.json();
 
 	// 		if ( !response.ok ) {
@@ -31,7 +31,7 @@ export default function UserInfo(): React.JSX.Element {
 	// 	};
 
 	// 	const fetchFollowing = async () => {
-	// 		const response = await fetch( `http://localhost:5000/api/users/${ user.username }/following` );
+	// 		const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/following` );
 	// 		const data = await response.json();
 
 	// 		if ( !response.ok ) {

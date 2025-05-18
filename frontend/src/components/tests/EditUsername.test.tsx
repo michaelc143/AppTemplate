@@ -162,7 +162,7 @@ describe( "EditUsername", () => {
 		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
     
 		expect( global.fetch ).toHaveBeenCalledWith(
-			"http://localhost:5000/api/users/testuser/username",
+			`${ process.env.REACT_APP_API_URL }/users/testuser/username`,
 			{
 				body: "{\"username\":\"testuser2\",\"userId\":\"1\"}",
 				headers: { "Content-Type": "application/json", "Authorization": "Bearer mockAccessToken" },

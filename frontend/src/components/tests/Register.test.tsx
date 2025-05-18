@@ -107,7 +107,7 @@ describe( "Register", () => {
 		await waitFor( () => expect( global.fetch ).toHaveBeenCalledTimes( 1 ) );
     
 		// Verify fetch was called with correct arguments
-		expect( global.fetch ).toHaveBeenCalledWith( "http://localhost:5000/api/register", {
+		expect( global.fetch ).toHaveBeenCalledWith( `${ process.env.REACT_APP_API_URL }/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
