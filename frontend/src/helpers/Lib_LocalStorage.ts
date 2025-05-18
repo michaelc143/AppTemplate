@@ -24,6 +24,14 @@ const LocalStorage = {
      */
 	removeLocalStorageItem: ( key: string ): void => {
 		localStorage.removeItem( key );
+	},
+
+	/**
+	 * Clears all items from local storage.
+	 * @returns void
+	 */
+	clearLocalStorage: (): void => {
+		localStorage.clear();
 	}
 };
 

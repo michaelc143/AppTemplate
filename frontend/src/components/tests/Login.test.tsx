@@ -9,7 +9,46 @@ import { UserContext } from "../../contexts/UserContext";
 import Login from "../Login";
 
 describe( "Login", () => {
+	it( "shows error toast on invalid credentials", async () => {
+		const setIsLoggedIn = jest.fn();
+		const setUser = jest.fn();
+		const showToast = jest.fn();
 
+		const mockUser = {
+			userId: "1",
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
+		};
+		
+		global.fetch = jest.fn( () =>
+			Promise.resolve(
+				new Response(
+					JSON.stringify( { message: "Invalid credentials" } ),
+					{ status: 401, headers: { "Content-Type": "application/json" } }
+				)
+			)
+		);
+
+		render(
+			<Router>
+				<AuthContext.Provider value={{ isLoggedIn: false, setIsLoggedIn }}>
+					<UserContext.Provider value={{ user: mockUser, setUser }}>
+						<ToastContext.Provider value={{ showToast }}>
+							<Login />
+						</ToastContext.Provider>
+					</UserContext.Provider>
+				</AuthContext.Provider>
+			</Router>
+		);
+
+		fireEvent.change( screen.getByLabelText( /Username/i ), { target: { value: "baduser" } } );
+		fireEvent.change( screen.getByLabelText( /Password/i ), { target: { value: "badpass" } } );
+		fireEvent.click( screen.getByRole( "button", { name: /login/i } ) );
+
+		await waitFor( () => expect( showToast ).toHaveBeenCalledWith( "Error logging in", "error" ) );
+	} );
 	test( "renders Login form and allows typing", () => {
 		const setIsLoggedIn = jest.fn();
 		const setUser = jest.fn();
@@ -61,7 +100,6 @@ describe( "Login", () => {
 			);
 		} );
 
-		screen.debug();
 		expect( window.location.pathname ).toBe( "/dashboard" );
 	} );
 
