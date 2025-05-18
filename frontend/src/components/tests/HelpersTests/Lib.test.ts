@@ -55,6 +55,14 @@ describe( "Lib.LocalStorage", () => {
 } );
 
 describe( "Lib", () => {
+	
+	beforeAll( () => {
+		Object.assign( navigator, {
+			clipboard: {
+				writeText: jest.fn().mockResolvedValue( undefined )
+			}
+		} );
+	} );
     
 	test( "capitalize capitalizes the first letter of a string", () => {
 		expect( Lib.capitalize( "hello world" ) ).toBe( "Hello world" );
@@ -102,6 +110,12 @@ describe( "Lib", () => {
 		const uuid = Lib.generateUUID();
 		expect( uuid ).toMatch( /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i );
 	} ); 
+	
+	test( "copyToClipboard copies text to the clipboard", async () => {
+		await Lib.copyToClipboard( "hello" );
+		expect( navigator.clipboard.writeText ).toHaveBeenCalledWith( "hello" );
+	} );
+	
 } );
 
 describe( "Lib.Arrays", () => {

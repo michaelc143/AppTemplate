@@ -5,6 +5,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
+import { ToastContext } from "../../contexts/ToastContext";
 import EditUsername from "../EditUsername";
 
 describe( "EditUsername", () => {
@@ -169,5 +170,29 @@ describe( "EditUsername", () => {
 				method: "PUT"
 			}
 		);
+	} );
+	
+	test( "navigates to / when not logged in", () => {
+		const setIsLoggedIn = jest.fn();
+		const setUser = jest.fn();
+
+		const mockUser = {
+			userId: "1",
+			username: "testuser",
+			email: "testuser@example.com",
+			dateJoined: "2022-01-01",
+			accessToken: "mockAccessToken"
+		};
+		render(
+			<Router>
+				<AuthContext.Provider value={{ isLoggedIn: false, setIsLoggedIn }}>
+					<UserContext.Provider value={{ user: mockUser, setUser }}>
+						<EditUsername />
+					</UserContext.Provider>
+				</AuthContext.Provider>
+			</Router>
+		);
+		expect( window.location.pathname ).toBe( "/" );
+		expect( window.location.pathname ).not.toBe( "/editprofile" );
 	} );
 } );

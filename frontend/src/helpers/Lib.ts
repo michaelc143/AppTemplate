@@ -183,9 +183,12 @@ const Lib = {
 	 * @param text - The text to copy to the clipboard.
 	 */
 	copyToClipboard: ( text: string ): void => {
-		navigator.clipboard.writeText( text ).catch( ( err ) => {
+		try {
+			navigator.clipboard.writeText( text );
+		}
+		catch ( err ) {
 			throw new Error( `Failed to copy text: ${ err }` );
-		} );
+		}
 	},
 
 	/**

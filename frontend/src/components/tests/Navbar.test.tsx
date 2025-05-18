@@ -34,6 +34,8 @@ describe( "Navbar", () => {
 		);
 
 		expect( screen.getByText( "Home" ) ).toBeInTheDocument();
+		expect( screen.getByText( "Search" ) ).toBeInTheDocument();
+		expect( screen.getByText( "Dashboard" ) ).toBeInTheDocument();
 		expect( screen.getByText( "Logout" ) ).toBeInTheDocument();
 		expect( screen.getByText( "Delete Account" ) ).toBeInTheDocument();
 		expect( screen.getByText( "User Info" ) ).toBeInTheDocument();
