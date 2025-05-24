@@ -10,11 +10,9 @@ import Follower from "./Follower";
 export default function DashboardList(): React.JSX.Element {
 
 	const { isLoggedIn } = useContext( AuthContext );
-	const { user } = useContext( UserContext );
+	const { user, setUser } = useContext( UserContext );
 	const { showToast } = useContext( ToastContext );
 	
-	const [ followers, setFollowers ] = React.useState<string[]>( [] );
-	const [ following, setFollowing ] = React.useState<string[]>( [] );
 	const [ isLoading, setIsLoading ] = React.useState<boolean>( true );
 	
 	useEffect( () => {
@@ -24,7 +22,7 @@ export default function DashboardList(): React.JSX.Element {
 
 			switch ( response.status ) {
 				case 200 :
-					setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
+					setUser( { ...user, followers: data.followers } );
 					break;
 				case 404 :
 					showToast( "Not Found: The requested resource could not be found.", "error" );
@@ -46,7 +44,7 @@ export default function DashboardList(): React.JSX.Element {
 
 			switch ( response.status ) {
 				case 200 :
-					setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
+					setUser( { ...user, following: data.following } );
 					break;
 				case 404 :
 					showToast( "Not Found: The requested resource could not be found.", "error" );
@@ -86,17 +84,17 @@ export default function DashboardList(): React.JSX.Element {
 						<h3 className="mb-8 font-bold text-2xl">Main functions</h3>
 						<div>
 							<ul className="text-white">
-								<li className="text-2xl">Followers: {followers.length}</li>
-								{followers.map( ( follower, index ) => (
+								<li className="text-2xl">Followers: {user?.followers?.length}</li>
+								{user?.followers?.map( ( follower, index ) => (
 									<li key={index} className="text-xl">
-										<Follower username={follower} />
+										<Follower username={follower.username} />
 									</li>
 								) )}
 							</ul>
 							<ul className="text-white">
-								<li className="text-2xl">Following: {following.length}</li>
-								{following.map( ( followed, index ) => (
-									<li key={index} className="text-xl">{followed}</li>
+								<li className="text-2xl">Following: {user?.following?.length}</li>
+								{user?.following?.map( ( followed, index ) => (
+									<li key={index} className="text-xl">{followed.username}</li>
 								) )}
 							</ul>
 						</div>

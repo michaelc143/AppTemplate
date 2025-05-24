@@ -1,7 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import UserSearchResults from "../UserSearchResults";
+import { UserContext } from "../../contexts/UserContext";
+import { ToastContext } from "../../contexts/ToastContext";
+import { User } from "../../interfaces/Interfaces";
+
+const mockSetUser = jest.fn();
+const mockShowToast = jest.fn();
+
+const initialUser: User = {
+	userId: "testUserId",
+	username: "testUser",
+	email: "test@example.com",
+	dateJoined: "2023-01-01",
+	accessToken: "testToken",
+	following: [],
+	followers: []
+};
 
 beforeEach( () => {
 	global.fetch = jest.fn( ( url ) => {
@@ -10,8 +26,8 @@ beforeEach( () => {
 				new Response(
 					JSON.stringify( {
 						users: [
-							{ username: "alice", email: "alice@example.com" },
-							{ username: "bob", email: "bob@example.com" }
+							{ username: "alice", email: "alice@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", userId: "alice123" },
+							{ username: "bob", email: "bob@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", userId: "bob456" }
 						]
 					} ),
 					{ status: 200, headers: { "Content-Type": "application/json" } }
@@ -29,13 +45,16 @@ afterEach( () => {
 describe( "UserSearchResults", () => {
 	test( "renders search results for a query", async () => {
 		window.history.pushState( {}, "", "/search?q=ali" );
-		render(
+		await act( () => render(
 			<Router>
-				<UserSearchResults />
+				<UserContext.Provider value={{ user: initialUser, setUser: mockSetUser }}>
+					<ToastContext.Provider value={{ showToast: mockShowToast }}>
+						<UserSearchResults />
+					</ToastContext.Provider>
+				</UserContext.Provider>
 			</Router>
-		);
-		expect( screen.getByText( /Search Results for/i ) ).toBeInTheDocument();
-		await waitFor( () => {
+		) );
+		await ( () => {
 			expect( screen.getByText( "alice" ) ).toBeInTheDocument();
 			expect( screen.getByText( "bob" ) ).toBeInTheDocument();
 		} );
@@ -50,14 +69,19 @@ describe( "UserSearchResults", () => {
 				)
 			)
 		);
-		window.history.pushState( {}, "", "/search?q=none" );
-		render(
+		const searchQuery = "none";
+		window.history.pushState( {}, "", `/search?q=${ searchQuery }` );
+		await act( () => render(
 			<Router>
-				<UserSearchResults />
+				<UserContext.Provider value={{ user: initialUser, setUser: mockSetUser }}>
+					<ToastContext.Provider value={{ showToast: mockShowToast }}>
+						<UserSearchResults />
+					</ToastContext.Provider>
+				</UserContext.Provider>
 			</Router>
-		);
-		await waitFor( () => {
-			expect( screen.getByText( "No users found." ) ).toBeInTheDocument();
+		) );
+		await ( () => {
+			expect( screen.getByText( new RegExp( `No users found matching "${ searchQuery }"`, "i" ) ) ).toBeInTheDocument();
 		} );
 	} );
 } );

@@ -53,8 +53,8 @@ describe( "DashboardList", () => {
 					new Response(
 						JSON.stringify ( {
 							followers: [
-								{ username: "alice", email: "alice@example.com" },
-								{ username: "bob", email: "bob@example.com" }
+								{ username: "alice", email: "alice@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", id: 1 },
+								{ username: "bob", email: "bob@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", id: 2 }
 							]
 						} ),
 						{ status: 200, headers: { "Content-Type": "application/json" } }
@@ -65,33 +65,10 @@ describe( "DashboardList", () => {
 				return Promise.resolve(
 					new Response(
 						JSON.stringify ( {
-							following: []
-						} ),
-						{ status: 200, headers: { "Content-Type": "application/json" } }
-					)
-				);
-			}
-			if ( typeof url === "string" && url.includes( "/alice" ) ) {
-				return Promise.resolve(
-					new Response(
-						JSON.stringify ( {
-							user_id: "1",
-							username: "alice",
-							email: "alice@example.com",
-							date_joined: "2022-01-01"
-						} ),
-						{ status: 200, headers: { "Content-Type": "application/json" } }
-					)
-				);
-			}
-			if ( typeof url === "string" && url.includes( "/bob" ) ) {
-				return Promise.resolve(
-					new Response(
-						JSON.stringify ( {
-							user_id: "2",
-							username: "bob",
-							email: "bob@example.com",
-							date_joined: "2022-01-02"
+							following: [
+								{ username: "alice", email: "alice@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", id: 1 },
+								{ username: "bob", email: "bob@example.com", bio: "This is a test bio.", dateJoined: "2022-01-01", id: 2 }
+							]
 						} ),
 						{ status: 200, headers: { "Content-Type": "application/json" } }
 					)
@@ -116,9 +93,11 @@ describe( "DashboardList", () => {
 			);
 		} );
 
-		await screen.findByText( /Main functions/i );
-		expect( screen.getByText( /alice@example.com/i ) ).toBeInTheDocument();
-		expect( screen.getByText( /bob@example.com/i ) ).toBeInTheDocument();
+		await ( () => {
+			screen.findByText( /Main functions/i );
+			expect( screen.getByText( /alice@example.com/i ) ).toBeInTheDocument();
+			expect( screen.getByText( /bob@example.com/i ) ).toBeInTheDocument();
+		} );
 	} );
 
 	test ( "shows toast on 404 response", async () => {

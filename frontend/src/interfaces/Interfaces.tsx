@@ -5,4 +5,6 @@ export type User = {
   dateJoined: string;
   accessToken?: string;
   bio?: string;
-}
+  following?: User[];
+  followers?: User[];
+};
