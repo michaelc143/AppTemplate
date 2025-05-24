@@ -1,6 +1,7 @@
 # Application Template
 
 ![Pipeline](https://github.com/michaelc143/AppTemplate/actions/workflows/build-test-lint-pipeline.yaml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is a starter template for applications to use a base to get a faster start on development.
 
