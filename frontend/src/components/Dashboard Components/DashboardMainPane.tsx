@@ -15,10 +15,10 @@ export default function DashboardMainPane(): React.JSX.Element {
 	}
 
 	return (
-		<div className="bg-slate-300 h-screen border-l-2 border-slate-500 rounded-lg">
+		<div className="dark:bg-gray-800 h-screen border-l-2 border-slate-500 rounded-lg">
 			<div className="flex flex-col items-center justify-center my-12 py-8">
-				<h1 className="mb-8 font-bold text-4xl">Welcome to the app!</h1>
-				<p className="text-lg">Hello, {user?.username}!</p>
+				<h1 className="mb-8 font-bold text-4xl text-indigo-600">Welcome to the app!</h1>
+				<p className="text-lg text-gray-600">Hello, {user?.username}!</p>
 			</div>
 		</div>
 	);

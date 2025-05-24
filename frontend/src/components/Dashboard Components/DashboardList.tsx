@@ -79,11 +79,11 @@ export default function DashboardList(): React.JSX.Element {
 			)
 			:
 			(
-				<div className="width-1/2 h-screen bg-slate-500 my-12 border-l-2 border-slate-500 rounded-lg">
+				<div className="width-1/2 h-screen dark:bg-gray-800 my-12 border-l-2 border-slate-500 rounded-lg">
 					<div className="flex flex-col items-center justify-center my-12 py-8">
-						<h3 className="mb-8 font-bold text-2xl">Main functions</h3>
+						<h3 className="mb-8 font-bold text-2xl text-indigo-600">Main functions</h3>
 						<div>
-							<ul className="text-white">
+							<ul className="text-gray-600">
 								<li className="text-2xl">Followers: {user?.followers?.length}</li>
 								{user?.followers?.map( ( follower, index ) => (
 									<li key={index} className="text-xl">
@@ -91,7 +91,7 @@ export default function DashboardList(): React.JSX.Element {
 									</li>
 								) )}
 							</ul>
-							<ul className="text-white">
+							<ul className="text-gray-600">
 								<li className="text-2xl">Following: {user?.following?.length}</li>
 								{user?.following?.map( ( followed, index ) => (
 									<li key={index} className="text-xl">{followed.username}</li>
