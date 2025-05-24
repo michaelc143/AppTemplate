@@ -32,23 +32,23 @@ export default function Follower( { username }: FollowerProps ): React.JSX.Eleme
 			const data = await response.json();
 
 			switch ( response.status ) {
-			case 200 :
-				setSelectedUser( {
-					userId: data.user_id,
-					username: data.username,
-					email: data.email,
-					dateJoined: data.date_joined
-				} as User );
-				break;
-			case 404 :
-				showToast( "User not found", "error" );
-				break;
-			case 500 :
-				showToast( "Internal server error", "error" );
-				break;
-			default :
-				showToast( "An unexpected error occurred", "error" );
-				break;
+				case 200 :
+					setSelectedUser( {
+						userId: data.user_id,
+						username: data.username,
+						email: data.email,
+						dateJoined: data.date_joined
+					} as User );
+					break;
+				case 404 :
+					showToast( "User not found", "error" );
+					break;
+				case 500 :
+					showToast( "Internal server error", "error" );
+					break;
+				default :
+					showToast( "An unexpected error occurred", "error" );
+					break;
 			}
 		};
 

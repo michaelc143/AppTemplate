@@ -18,12 +18,15 @@ export default function DeleteAccount(): React.JSX.Element {
 
 	const deleteUser = async () => {
 		try {
-			const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }`, {
-				headers: {
-					"Authorization": `Bearer ${ user.accessToken }`
-				},
-				method: "DELETE"
-			} );
+			const response = await fetch(
+				`${ process.env.REACT_APP_API_URL }/users/${ user.username }`,
+				{
+					headers: {
+						Authorization: `Bearer ${ user.accessToken }`
+					},
+					method: "DELETE"
+				}
+			);
 
 			if ( response.ok ) {
 				setIsLoggedIn( false );
@@ -36,12 +39,9 @@ export default function DeleteAccount(): React.JSX.Element {
 				} );
 				showToast( "User deleted successfully", "success" );
 				navigate( "/" );
-			}
-
-			else {
+			} else {
 				showToast( "Error deleting user", "error" );
 			}
-
 		} catch ( err ) {
 			showToast( "Error connecting to db", "error" );
 		}
@@ -49,8 +49,15 @@ export default function DeleteAccount(): React.JSX.Element {
 
 	return (
 		<div className="flex flex-col items-center justify-center my-16">
-			<h1 className="mb-8 font-bold text-4xl">Are you sure you want to delete your account?</h1>
-			<button onClick={deleteUser} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Account</button>
+			<h1 className="mb-8 font-bold text-4xl">
+				Are you sure you want to delete your account?
+			</h1>
+			<button
+				onClick={deleteUser}
+				className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+			>
+				Delete Account
+			</button>
 		</div>
 	);
 }

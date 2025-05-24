@@ -1,3 +1,9 @@
+"""
+user_profile_routes.py
+-----------------------------
+This module contains the routes for user profile management, including
+getting, editing, and deleting a user's bio.
+"""
 import sqlalchemy.exc
 from flask import Blueprint, jsonify, request
 from models import db, User

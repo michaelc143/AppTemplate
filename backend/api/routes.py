@@ -12,21 +12,22 @@ api = Blueprint('api', __name__)
 def follow_user(username):
     """ Follow a user """
     try:
-        current_user = get_jwt_identity()
-        data = request.get_json()
+        current_user_identity = get_jwt_identity()
+        if not current_user_identity:
+            return jsonify({'message': 'Unauthorized'}), 404
 
-        if current_user != data.get('username'):
-            return jsonify({'message': 'You are not authorized to follow this user'}), 403
+        if current_user_identity == username: # User cannot follow themselves
+            return jsonify({'message': 'You cannot follow yourself'}), 400
 
         user_to_follow = User.query.filter_by(username=username).first()
 
         if user_to_follow is None:
-            return jsonify({'message': 'User not found'}), 404
+            return jsonify({'message': 'No user found with that username'}), 404
 
-        if current_user == username:
-            return jsonify({'message': 'You cannot follow yourself'}), 400
+        current_user_obj = User.query.filter_by(username=current_user_identity).first()
+        if not current_user_obj: # Should not happen if JWT is valid and user exists
+            return jsonify({'message': 'Your user not found'}), 404
 
-        current_user_obj = User.query.filter_by(username=current_user).first()
         if user_to_follow in current_user_obj.following:
             return jsonify({'message': 'You are already following this user'}), 400
 
@@ -35,6 +36,7 @@ def follow_user(username):
 
         return jsonify({'message': f'You are now following {username}'}), 200
     except sqlalchemy.exc.SQLAlchemyError:
+        db.session.rollback() # Ensure rollback on error
         return jsonify({'message': 'Internal server error'}), 500
 
 @api.route('/users/<string:username>/unfollow', methods=['POST'])
@@ -42,13 +44,11 @@ def follow_user(username):
 def unfollow_user(username):
     """ Unfollow a user """
     try:
-        current_user = get_jwt_identity()
-        data = request.get_json()
+        current_user_identity = get_jwt_identity()
+        if not current_user_identity:
+            return jsonify({'message': 'Unauthorized'}), 404
 
-        if current_user != data.get('username'):
-            return jsonify({'message': 'You are not authorized to unfollow this user'}), 403
-
-        if current_user == username:
+        if current_user_identity == username: # User cannot unfollow themselves
             return jsonify({'message': 'You cannot unfollow yourself'}), 400
 
         user_to_unfollow = User.query.filter_by(username=username).first()
@@ -56,7 +56,10 @@ def unfollow_user(username):
         if user_to_unfollow is None:
             return jsonify({'message': 'User not found'}), 404
 
-        current_user_obj = User.query.filter_by(username=current_user).first()
+        current_user_obj = User.query.filter_by(username=current_user_identity).first()
+        if not current_user_obj: # Should not happen
+            return jsonify({'message': 'Your user not found'}), 404
+
         if user_to_unfollow not in current_user_obj.following:
             return jsonify({'message': 'You are not following this user'}), 400
 
@@ -65,6 +68,7 @@ def unfollow_user(username):
 
         return jsonify({'message': f'You have unfollowed {username}'}), 200
     except sqlalchemy.exc.SQLAlchemyError:
+        db.session.rollback() # Ensure rollback on error
         return jsonify({'message': 'Internal server error'}), 500
 
 @api.route('/users/<string:username>/followers', methods=['GET'])
@@ -120,15 +124,14 @@ def change_password(username):
     """ Change a user's password """
     try:
         data = request.get_json()
+        current_user_identity = get_jwt_identity()
+        if not current_user_identity:
+            return jsonify({'message': 'Unauthorized'}), 404
 
-        # Get the current user from the JWT
-        current_user = get_jwt_identity()
-        curr_username = data.get('username')
+        # Authorization: Check if the JWT identity matches the path username
+        if current_user_identity != username:
+            return jsonify({'message': 'You are not authorized to change this user\\\'s password'}), 403
 
-        if current_user != curr_username:
-            return jsonify({'message': 'You are not authorized to change this user\'s password'}), 403
-
-        # Get the new password from the request
         new_password = data.get('newPassword')
         if not new_password:
             return jsonify({'message': 'New password is required'}), 400
@@ -141,12 +144,11 @@ def change_password(username):
             return jsonify({'message': 'User not found'}), 404
 
         # Check if the new password is the same as the old one
-        hashed_password = generate_password_hash(new_password)
         if check_password_hash(user.password, new_password):
             return jsonify({'message': 'New password cannot be the same as the old one'}), 400
 
         # Update the password and commit the changes
-        user.password = hashed_password
+        user.password = generate_password_hash(new_password)
         db.session.commit()
 
         # Return a success message
@@ -154,8 +156,20 @@ def change_password(username):
             'message': 'Password updated successfully',
             'username': user.username}), 200
     except sqlalchemy.exc.SQLAlchemyError as exception:
+        db.session.rollback() # Ensure rollback on error
         print(f"Error in change_password: {exception}")
         return jsonify({'message': f'Internal server error: {exception}'}), 500
+
+@api.route('/token-check', methods=['GET'])
+def check_token():
+    """ Check if the token is valid """
+    auth_header = request.headers.get('Authorization')
+    if not auth_header:
+        return jsonify({'message': 'Missing Authorization Header'}), 401
+
+    print("Authorization Header:", auth_header)
+    return jsonify({'token': auth_header}), 200
+
 
 @api.route('/', methods=['GET'])
 def test():

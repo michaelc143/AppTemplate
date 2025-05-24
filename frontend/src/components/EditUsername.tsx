@@ -41,8 +41,7 @@ export default function EditUsername(): React.JSX.Element {
 					"Authorization": `Bearer ${ user.accessToken }`
 				},
 				body: JSON.stringify( {
-					username: newUsername,
-					userId: user.userId
+					newUsername: newUsername
 				} )
 			} );
 
@@ -87,6 +86,12 @@ export default function EditUsername(): React.JSX.Element {
 			</div>
 			<button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
 				<Link to="/deleteaccount">Delete Account</Link>
+			</button>
+			<button className="bg-sky-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
+				<Link to="/editprofile">Return to Edit Profile</Link>
+			</button>
+			<button className="bg-sky-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
+				<Link to="/dashboard">Return to Dashboard</Link>
 			</button>
 		</div>
 	);

@@ -164,7 +164,7 @@ describe( "EditUsername", () => {
 		expect( global.fetch ).toHaveBeenCalledWith(
 			`${ process.env.REACT_APP_API_URL }/users/testuser/username`,
 			{
-				body: "{\"username\":\"testuser2\",\"userId\":\"1\"}",
+				body: "{\"newUsername\":\"testuser2\"}",
 				headers: { "Content-Type": "application/json", "Authorization": "Bearer mockAccessToken" },
 				method: "PUT"
 			}

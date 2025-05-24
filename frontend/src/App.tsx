@@ -12,6 +12,7 @@ import Logout from "./components/Logout";
 import DeleteAccount from "./components/DeleteAccount";
 import EditProfile from "./components/EditProfile";
 import EditUsername from "./components/EditUsername";
+import EditBio from "./components/EditBio";
 import Dashboard from "./components/Dashboard Components/Dashboard";
 import UserSearchResults from "./components/UserSearchResults";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -103,6 +104,15 @@ function App() {
 										transition={{ duration: 0.3 }}
 									>
 										<EditUsername />
+									</motion.div>} />
+								<Route path='/editbio' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<EditBio />
 									</motion.div>} />
 								<Route path='/dashboard' element={
 									<motion.div

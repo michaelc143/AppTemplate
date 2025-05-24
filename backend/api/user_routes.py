@@ -1,12 +1,17 @@
+"""
+user_profile_routes.py
+-----------------------------
+This module contains the routes for user profile management, including
+getting, editing, and deleting a user's bio.
+"""
 import sqlalchemy.exc
 from flask import Blueprint, jsonify, request
 from models import db, User
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token # Import create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 
 user_bp = Blueprint('user_bp', __name__)
 
 @user_bp.route('/users/<string:username>', methods=['GET'])
-@jwt_required()
 def get_user(username):
     """ Get a user by ID """
     try:
@@ -61,9 +66,9 @@ def edit_username(username):
         current_user_identity = get_jwt_identity()
 
         if current_user_identity != username:
-            return jsonify({'message': f'You are not authorized to edit this user {current_user_identity}'}), 403
+            return jsonify({'message': 'You are not authorized to edit this user'}), 403
 
-        new_username = data.get('username')
+        new_username = data.get('newUsername')
         if not new_username:
             return jsonify({'message': 'New username is required'}), 400
 

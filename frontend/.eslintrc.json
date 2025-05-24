@@ -25,7 +25,7 @@
     "no-console": "off", // Warn on console statements
     "default-case": "warn", // Enforce default case in switch statements
     "quotes": ["error", "double"], // Enforce double quotes
-    "indent": ["error", "tab"], // Enforce tab indentation
+    "indent": ["error", "tab", { "SwitchCase": 1 }], // Enforce tab indentation
     "arrow-spacing": ["error", { "before": true, "after": true }], // Enforce spacing around arrow function arrows
     "comma-dangle": ["error", "never"], // Enforce trailing commas in multiline objects and arrays
     "array-bracket-spacing":  ["error", "always"], // Enforce spacing inside array brackets

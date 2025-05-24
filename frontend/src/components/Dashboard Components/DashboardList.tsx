@@ -23,18 +23,18 @@ export default function DashboardList(): React.JSX.Element {
 			const data = await response.json();
 
 			switch ( response.status ) {
-			case 200 :
-				setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
-				break;
-			case 404 :
-				showToast( "Not Found: The requested resource could not be found.", "error" );
-				break;
-			case 500 :
-				showToast( "Internal Server Error: Please try again later.", "error" );
-				break;
-			default :
-				showToast( "An unexpected error occurred.", "error" );
-				break;
+				case 200 :
+					setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
+					break;
+				case 404 :
+					showToast( "Not Found: The requested resource could not be found.", "error" );
+					break;
+				case 500 :
+					showToast( "Internal Server Error: Please try again later.", "error" );
+					break;
+				default :
+					showToast( "An unexpected error occurred.", "error" );
+					break;
 			}
 
 			setIsLoading( false );
@@ -45,18 +45,18 @@ export default function DashboardList(): React.JSX.Element {
 			const data = await response.json();
 
 			switch ( response.status ) {
-			case 200 :
-				setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
-				break;
-			case 404 :
-				showToast( "Not Found: The requested resource could not be found.", "error" );
-				break;
-			case 500 :
-				showToast( "Internal Server Error: Please try again later.", "error" );
-				break;
-			default :
-				showToast( "An unexpected error occurred.", "error" );
-				break;
+				case 200 :
+					setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
+					break;
+				case 404 :
+					showToast( "Not Found: The requested resource could not be found.", "error" );
+					break;
+				case 500 :
+					showToast( "Internal Server Error: Please try again later.", "error" );
+					break;
+				default :
+					showToast( "An unexpected error occurred.", "error" );
+					break;
 			}
 	
 			setIsLoading( false );
