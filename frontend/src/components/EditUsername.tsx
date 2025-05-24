@@ -48,7 +48,10 @@ export default function EditUsername(): React.JSX.Element {
 
 			if ( response.ok ) {
 				showToast( "Username changed successfully!", "success" );
-				const updatedUser = { ...user, username: newUsername };
+				// Parse the JSON response
+				const data = await response.json(); 
+				// Update access token
+				const updatedUser = { ...user, username: newUsername, accessToken: data.access_token }; 
 				setNewUsername( "" );
 				// Clear the input field after updating
 				setUser( updatedUser );
