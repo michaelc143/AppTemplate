@@ -5,6 +5,7 @@ export interface AuthResponse {
     username: string;
     user_id: string;
     access_token: string;
+    bio?: string;
 }
 
 export interface UsernameResponse {

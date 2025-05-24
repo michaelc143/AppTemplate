@@ -112,10 +112,12 @@ describe( "Register", () => {
 			headers: {
 				"Content-Type": "application/json"
 			},
+			// Add bio field to expected body
 			body: JSON.stringify( {
 				username: "testuser",
 				email: "testuser@example.com",
-				password: "Testpassword!1"
+				password: "Testpassword!1",
+				bio: ""
 			} )
 		} );
 

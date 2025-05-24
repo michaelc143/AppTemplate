@@ -5,7 +5,6 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
-import { ToastContext } from "../../contexts/ToastContext";
 import EditUsername from "../EditUsername";
 
 describe( "EditUsername", () => {

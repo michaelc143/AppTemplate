@@ -18,6 +18,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import { UserProvider } from "./contexts/UserContext";
 import { ToastContainer } from "react-toastify";
+import { AnimatePresence, motion } from "framer-motion";
 
 function App() {
 	return (
@@ -27,19 +28,111 @@ function App() {
 					<ToastContainer />
 					<Router>
 						<Navbar />
-						<Routes>
-							<Route path='/' element={<Home />} />
-							<Route path='/login' element={<Login />} />
-							<Route path='/logout' element={<Logout />} />
-							<Route path='/register' element={<Register />} />
-							<Route path='/userinfo' element={<UserInfo />} />
-							<Route path='/deleteaccount' element={<DeleteAccount />} />
-							<Route path='/editprofile' element={<EditProfile />} />
-							<Route path='/editusername' element={<EditUsername />} />
-							<Route path='/dashboard' element={<Dashboard />} />
-							<Route path="/search" element={<UserSearchResults />} />
-							<Route path='*' element={<PageNotFound />} />
-						</Routes>
+						<AnimatePresence>
+							<Routes>
+								<Route path='/' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Home />
+									</motion.div>
+								}/>
+								<Route path='/login' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Login />
+									</motion.div>
+								}/>
+								<Route path='/logout' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Logout />
+									</motion.div>} />
+								<Route path='/register' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Register />
+									</motion.div>} />
+								<Route path='/userinfo' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<UserInfo />
+									</motion.div>} />
+								<Route path='/deleteaccount' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<DeleteAccount />
+									</motion.div>} />
+								<Route path='/editprofile' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<EditProfile />
+									</motion.div>} />
+								<Route path='/editusername' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<EditUsername />
+									</motion.div>} />
+								<Route path='/dashboard' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Dashboard />
+									</motion.div>} />
+								<Route path='/search' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<UserSearchResults />
+									</motion.div>} />
+								<Route path='/*' element={
+									<motion.div
+										initial={{ opacity: 0, x: 50 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -50 }}
+										transition={{ duration: 0.3 }}
+									>
+										<PageNotFound />
+									</motion.div>} />
+							</Routes>
+						</AnimatePresence>
 					</Router>
 				</ToastProvider>
 			</UserProvider>

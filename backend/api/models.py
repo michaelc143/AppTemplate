@@ -19,6 +19,7 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
+    bio = db.Column(db.String(255), unique=False, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     # Define the followers relationship
@@ -30,7 +31,8 @@ class User(db.Model):
         backref='following'
     )
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password, email, bio):
         self.username = username
         self.password = password
+        self.bio = bio
         self.email = email

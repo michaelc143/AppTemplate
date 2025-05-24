@@ -22,7 +22,7 @@
     "curly": ["error", "all"], // Enforce curly braces for all control statements
     "no-irregular-whitespace": "error", // Disallow irregular whitespace outside of strings and comments
     "no-unused-vars": "warn", // Warn on unused variables
-    "no-console": "warn", // Warn on console statements
+    "no-console": "off", // Warn on console statements
     "default-case": "warn", // Enforce default case in switch statements
     "quotes": ["error", "double"], // Enforce double quotes
     "indent": ["error", "tab"], // Enforce tab indentation
