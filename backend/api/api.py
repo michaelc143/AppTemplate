@@ -13,7 +13,7 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')  # Add a secret key for JWT
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 db.init_app(app)
-jwt = JWTManager(app) 
+jwt = JWTManager(app)
 
 app.register_blueprint(api, url_prefix='/api')
 

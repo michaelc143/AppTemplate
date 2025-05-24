@@ -35,7 +35,7 @@ def delete_user(username):
         current_user = get_jwt_identity()
         if current_user != username:
             return jsonify({'message': 'You are not authorized to delete this user'}), 403
-        
+
         # Find the user by username
         user = User.query.filter_by(username=username).first()
 
@@ -62,7 +62,7 @@ def login():
         # Get the username and password from the request
         username = data.get('username')
         password = data.get('password')
-        
+
         # Validate the input
         if not username or not password:
             return jsonify({'error': 'Missing username or password'}), 400
@@ -86,10 +86,10 @@ def login():
             'date_joined': user.created_at,
             'access_token': access_token
         }), 200
-    except Exception as e:
+    except sqlalchemy.exc.SQLAlchemyError as exception:
         # Log the error and return a 500 response
-        print(f"Error in /login: {e}")
-        return jsonify({'error': f'Internal server error {e}'}), 500
+        print(f"Error in /login: {exception}")
+        return jsonify({'error': f'Internal server error {exception}'}), 500
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -149,7 +149,7 @@ def edit_username(username):
         new_username = data.get('username')
         if not new_username:
             return jsonify({'message': 'New username is required'}), 400
-        
+
         if 'userId' in data:
             user_id = data.get('userId')
 
@@ -163,7 +163,7 @@ def edit_username(username):
         if user is None:
             # If the user doesn't exist, return an error
             return jsonify({'message': 'User not found'}), 404
-        
+
         # Check if the new username is already taken
         existing_user = User.query.filter_by(username=new_username).first()
         if existing_user:
@@ -177,9 +177,9 @@ def edit_username(username):
         return jsonify({
             'message': 'Username updated successfully',
             'username': user.username}), 200
-    except Exception as e:
-        print(f"Error in edit_username: {e}")
-        return jsonify({'message': f'Internal server error: {e}'}), 500
+    except sqlalchemy.exc.SQLAlchemyError as exception:
+        print(f"Error in edit_username: {exception}")
+        return jsonify({'message': f'Internal server error: {exception}'}), 500
 
 @api.route('/users/<string:username>/follow', methods=['POST'])
 @jwt_required()

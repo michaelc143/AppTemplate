@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { fireEvent, render, screen, act, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
-import { ToastContext } from "../../contexts/ToastContext";
 import Logout from "../Logout";
 import { User } from "../../interfaces/Interfaces";
 
