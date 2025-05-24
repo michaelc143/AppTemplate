@@ -17,34 +17,34 @@ export default function UserInfo(): React.JSX.Element {
 	const [ followers, setFollowers ] = useState<string[]>( [] );
 	const [ following, setFollowing ] = useState<string[]>( [] );
 
-	// useEffect( () => {
-	// 	const fetchFollowers = async () => {
-	// 		const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/followers` );
-	// 		const data = await response.json();
+	useEffect( () => {
+		const fetchFollowers = async () => {
+			const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/followers` );
+			const data = await response.json();
 
-	// 		if ( !response.ok ) {
-	// 			console.error( "Error fetching following data:", data );
-	// 			return;
-	// 		}
+			if ( !response.ok ) {
+				console.error( "Error fetching following data:", data );
+				return;
+			}
 
-	// 		setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
-	// 	};
+			setFollowers( data.followers.map( ( follower: { username: string } ) => follower.username ) );
+		};
 
-	// 	const fetchFollowing = async () => {
-	// 		const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/following` );
-	// 		const data = await response.json();
+		const fetchFollowing = async () => {
+			const response = await fetch( `${ process.env.REACT_APP_API_URL }/users/${ user.username }/following` );
+			const data = await response.json();
 
-	// 		if ( !response.ok ) {
-	// 			console.error( "Error fetching following data:", data );
-	// 			return;
-	// 		}
+			if ( !response.ok ) {
+				console.error( "Error fetching following data:", data );
+				return;
+			}
 
-	// 		setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
-	// 	};
+			setFollowing( data.following.map( ( followed: { username: string } ) => followed.username ) );
+		};
 
-	// 	fetchFollowers();
-	// 	fetchFollowing();
-	// }, [ user.username ] );
+		fetchFollowers();
+		fetchFollowing();
+	}, [ user.username ] );
 
 	if ( !isLoggedIn ) {
 		return <Navigate to="/" />;
@@ -56,6 +56,7 @@ export default function UserInfo(): React.JSX.Element {
 			<div className="text-2xl text-white">Username: {user.username}</div>
 			<div className="text-2xl text-white">Email: {user.email}</div>
 			<div className="text-2xl text-white">Date Joined: {user.dateJoined}</div>
+			{user.bio && <div className="text-2xl text-white">Bio: {user.bio}</div>}
 			<div className="text-2xl text-white">Followers: {followers.length}</div>
 			<ul className="text-white">
 				{followers.length !== 0 && followers.map( ( follower ) => (

@@ -35,6 +35,7 @@ export default function Login(): React.JSX.Element {
 					userId: data.user_id,
 					username: data.username,
 					email: data.email,
+					bio: data.bio,
 					dateJoined: data.date_joined,
 					accessToken: data.access_token
 				} as User );

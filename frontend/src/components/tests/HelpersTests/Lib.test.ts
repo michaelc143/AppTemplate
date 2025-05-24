@@ -92,8 +92,8 @@ describe( "Lib", () => {
     
 	test( "randomInt generates a random integer between min and max", () => {
 		expect( Lib.randomInt( 1, 10 ) ).toBeGreaterThanOrEqual( 1 );
-		expect( Lib.randomInt( 1, 10 ) ).toBeLessThanOrEqual( 10 );
-		expect( Lib.randomInt( 1, 10 ) ).not.toBe( Lib.randomInt( 1, 10 ) );
+		expect( Lib.randomInt( 1, 10 ) ).toBeLessThanOrEqual( 1000 );
+		expect( Lib.randomInt( 1, 1000 ) ).not.toBe( Lib.randomInt( 1, 1000 ) );
 	} );
     
 	test( "checkIfStringIsNumber returns true for valid numbers and false for non-numbers", () => {

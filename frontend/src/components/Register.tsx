@@ -13,6 +13,7 @@ export default function Register(): React.JSX.Element {
 	const [ username, setUsername ] = useState<string>( "" );
 	const [ email, setEmail ] = useState<string>( "" );
 	const [ password, setPassword ] = useState<string>( "" );
+	const [ bio, setBio ] = useState<string>( "" );
 	const { setIsLoggedIn } = useContext( AuthContext );
 	const { showToast } = useContext( ToastContext );
 	const { setUser } = useContext( UserContext );
@@ -54,9 +55,10 @@ export default function Register(): React.JSX.Element {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify( {
-					username,
-					email,
-					password
+					username: username,
+					email: email,
+					password: password,
+					bio: bio
 				} )
 			} );
 
@@ -67,7 +69,9 @@ export default function Register(): React.JSX.Element {
 				setUser( {
 					username: data.username,
 					email: data.email,
-					dateJoined: data.date_joined
+					dateJoined: data.date_joined,
+					bio: data.bio,
+					accessToken: data.access_token
 				} as User );
 				showToast( "Registered successfully!", "success" );
 				navigate( "/userinfo" );
@@ -100,6 +104,10 @@ export default function Register(): React.JSX.Element {
 						<div>
 							<label htmlFor="password" className="sr-only">Password</label>
 							<input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password" value={password} onChange={( e ) => setPassword( e.target.value )} />
+						</div>
+						<div>
+							<label htmlFor="bio" className="sr-only">Bio</label>
+							<input id="bio" name="bio" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Bio" value={bio} onChange={( e ) => setBio( e.target.value )} />
 						</div>
 					</div>
 					<div>
