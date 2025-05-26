@@ -8,7 +8,7 @@ SCRIPT_DIR=$(dirname "$0")
 ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
 
 # Check if package.json exists in the root directory
-if [ ! -f "$ROOT_DIR/package.json" ]; then
+if [ ! -f "$ROOT_DIR/.pylintrc" ]; then
   echo "package.json not found in the root directory: $ROOT_DIR"
   exit 1
 fi
@@ -17,9 +17,5 @@ fi
 cd "$ROOT_DIR" || exit
 
 # Run the linter
-echo "Running frontend linter..."
-npm run lint
-
-# Run the tests
-echo "Running tests with coverage..."
-npm run test -- --coverage
+echo "Running backend linter..."
+pylint **/*.py --rcfile=.pylintrc

@@ -3,3 +3,5 @@
 .dockerignore
 Dockerfile
 docs/
+__pycache__/
+*.pyc

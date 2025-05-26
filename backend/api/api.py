@@ -1,5 +1,6 @@
 """  API for the application """
 import os
+import logging
 from dotenv import load_dotenv
 from auth_routes import auth_bp
 from user_profile_routes import user_profile_bp
@@ -11,6 +12,11 @@ from flask_cors import CORS
 from flask import Flask, jsonify
 from models import db
 from flask_jwt_extended import JWTManager
+from logger_config import setup_logger
+
+setup_logger()
+logger = logging.getLogger(__name__)
+logger.info("Starting the Flask application...")
 
 load_dotenv()
 app = Flask(__name__)

@@ -20,7 +20,8 @@
   ],
   "cSpell.words": [
     "jsonify",
-    "unfollowing"
+    "unfollowing",
+    "levelname"
   ],
   "pylint.args": [
     "--rcfile=backend/.pylintrc"

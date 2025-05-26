@@ -3,3 +3,7 @@ disable=R0903
 
 [FORMAT]
 max-line-length = 120
+
+[DESIGN]
+
+max-returns = 10
