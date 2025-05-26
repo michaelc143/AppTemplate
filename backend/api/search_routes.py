@@ -4,16 +4,21 @@ user_profile_routes.py
 This module contains the routes for user profile management, including
 getting, editing, and deleting a user's bio.
 """
+import logging
+from logging import getLogger 
 from flask import Blueprint, jsonify, request
 from models import User, db
 import sqlalchemy.exc
 
 search_bp = Blueprint('search_bp', __name__)
+logger = getLogger(__name__)
+logging.basicConfig(filename='api.log', encoding='utf-8', level=logging.DEBUG)
 
 @search_bp.route('/search', methods=['GET'])
 def search_users():
     """Search users by username (partial match)"""
     try:
+        logger.debug('Searching for users with query: %s', request.args.get('q', ''))
         query = request.args.get('q', '')
         if not query:
             # Consider if this should be an error or just an empty list

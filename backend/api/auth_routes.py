@@ -4,6 +4,8 @@ user_profile_routes.py
 This module contains the routes for user profile management, including
 getting, editing, and deleting a user's bio.
 """
+import logging
+from logging import getLogger
 import sqlalchemy.exc
 from flask import Blueprint, jsonify, request
 from models import db, User
@@ -11,11 +13,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 
 auth_bp = Blueprint('auth_routes', __name__)
+logger = getLogger(__name__)
+logging.basicConfig(filename='api.log', encoding='utf-8', level=logging.DEBUG)
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """ Log in a user """
     try:
+        logger.debug('Attempting to log in user with username: %s', request.get_json().get('username', ''))
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
@@ -47,6 +52,7 @@ def login():
 def register():
     """ Register a new user """
     try:
+        logger.debug('Attempting to register user with username: %s', request.get_json().get('username', ''))
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')

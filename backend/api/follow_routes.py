@@ -4,18 +4,23 @@ user_profile_routes.py
 This module contains the routes for user profile management, including
 getting, editing, and deleting a user's bio.
 """
+import logging
+from logging import getLogger
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import sqlalchemy.exc
 from models import db, User
 
 follow_bp = Blueprint('follow_bp', __name__)
+logger = getLogger(__name__)
+logging.basicConfig(filename='api.log', encoding='utf-8', level=logging.DEBUG)
 
 @follow_bp.route('/<string:username>/follow', methods=['POST'])
 @jwt_required()
 def follow_user(username):
     """Follow a user"""
     try:
+        logger.debug('Following user %s', username)
         current_user_identity = get_jwt_identity()
         if not current_user_identity:
             return jsonify({'message': 'Unauthorized'}), 401 # Corrected status code
@@ -56,6 +61,7 @@ def follow_user(username):
 def unfollow_user(username):
     """Unfollow a user"""
     try:
+        logger.debug('Unfollowing user %s', username)
         current_user_identity = get_jwt_identity()
         if not current_user_identity:
             return jsonify({'message': 'Unauthorized'}), 401 # Corrected status code
@@ -96,6 +102,7 @@ def unfollow_user(username):
 def get_followers(username):
     """Get followers of a user"""
     try:
+        logger.debug('Getting followers for user %s', username)
         user = User.query.filter_by(username=username).first()
 
         if user is None:
@@ -114,7 +121,7 @@ def get_followers(username):
 def get_following(username):
     """Get users that a user is following"""
     try:
-        print(username)
+        logger.debug('Getting following for user %s', username)
         user = User.query.filter_by(username=username).first()
 
         if user is None:
