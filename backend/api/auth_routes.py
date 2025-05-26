@@ -6,7 +6,7 @@ getting, editing, and deleting a user's bio.
 """
 from logging import getLogger
 import sqlalchemy.exc
-from utils import return_500_response, get_user_or_404, log_request
+from utils import return_500_response, get_user_or_404, log_request, validate_required_fields
 from flask import Blueprint, jsonify, request
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -22,11 +22,15 @@ def login():
         log_request(request)
         logger.debug('Attempting to log in user with username: %s', request.get_json().get('username', ''))
         data = request.get_json()
+
+        valid_data, missing_fields = validate_required_fields(data, ['username', 'password'], "login")
+        if not valid_data:
+            return jsonify({'error': 'Missing data from request'}), 400
+        if len(missing_fields) > 0:
+            return jsonify({'error': 'Missing fields in request: ' + (', '.join(missing_fields))}), 400
+
         username = data.get('username')
         password = data.get('password')
-
-        if not username or not password:
-            return jsonify({'error': 'Missing username or password'}), 400
 
         user, error_response, status = get_user_or_404(username)
         if error_response:
@@ -64,9 +68,17 @@ def register():
         logger.debug('Attempting to register user with username: %s', request.get_json().get('username', ''))
 
         data = request.get_json()
+
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
+
+        valid_data, missing_fields = validate_required_fields(data, ['username', 'password', 'email'], "register")
+        if not valid_data:
+            return jsonify({'error': 'Missing data from request'}), 400
+        if len(missing_fields) > 0:
+            return jsonify({'error': 'Missing fields in request: ' + (', '.join(missing_fields))}), 400
+
         bio = data.get('bio')
 
         user_exists = User.query.filter_by(username=username).first()

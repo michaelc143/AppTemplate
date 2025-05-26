@@ -9,7 +9,7 @@ import sqlalchemy.exc
 from flask import Blueprint, jsonify, request
 from models import db
 from flask_jwt_extended import jwt_required
-from utils import get_user_or_404, check_for_token, return_500_response, log_request
+from utils import get_user_or_404, check_for_token, return_500_response, log_request, validate_required_fields
 
 user_profile_bp = Blueprint('user_profile_routes', __name__)
 logger = getLogger(__name__)
@@ -43,6 +43,13 @@ def edit_bio(username):
         logger.debug('Editing bio for user: %s', username)
 
         data = request.get_json()
+
+        valid_data, missing_fields = validate_required_fields(data, ['bio'], "edit_bio")
+        if not valid_data:
+            return jsonify({'error': 'Missing data from request'}), 400
+        if len(missing_fields) > 0:
+            return jsonify({'error': 'Missing fields in request: ' + (', '.join(missing_fields))}), 400
+
         current_user_identity, error_response_token, status = check_for_token()
         if error_response_token:
             return error_response_token, status
@@ -52,9 +59,6 @@ def edit_bio(username):
             return jsonify({'message': 'You are not authorized to edit this bio'}), 403
 
         new_bio = data.get('bio')
-        # Consider allowing empty string for bio if user wants to clear it
-        if new_bio is None:  # Check for None explicitly if empty string is allowed
-            return jsonify({'message': 'New bio is required'}), 400
 
         user, error_response_user, status = get_user_or_404(username)
         if error_response_user:

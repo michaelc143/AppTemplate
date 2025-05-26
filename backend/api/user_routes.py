@@ -6,7 +6,7 @@ getting, editing, and deleting a user's bio.
 """
 from logging import getLogger
 import sqlalchemy.exc
-from utils import get_user_or_404, return_500_response, check_for_token, log_request
+from utils import get_user_or_404, return_500_response, check_for_token, log_request, validate_required_fields
 from flask import Blueprint, jsonify, request
 from models import db, User
 from flask_jwt_extended import jwt_required, create_access_token
@@ -77,13 +77,20 @@ def edit_username(username):
         log_request(request)
         logger.debug('Editing username for user: %s', username)
 
-        data = request.get_json()
         current_user_identity, error_response_token, token_status = check_for_token()
         if error_response_token:
             return error_response_token, token_status
 
         if current_user_identity != username:
             return jsonify({'message': 'You are not authorized to edit this user'}), 403
+
+        data = request.get_json()
+
+        valid_data, missing_fields = validate_required_fields(data, ['newUsername'], "edit_username")
+        if not valid_data:
+            return jsonify({'error': 'Missing data from request'}), 400
+        if len(missing_fields) > 0:
+            return jsonify({'error': 'Missing fields in request: ' + (', '.join(missing_fields))}), 400
 
         new_username = data.get('newUsername')
         if not new_username:

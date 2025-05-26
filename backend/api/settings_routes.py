@@ -5,7 +5,7 @@ This module contains the routes for user profile management, including
 getting, editing, and deleting a user's bio.
 """
 from logging import getLogger
-from utils import get_user_or_404, check_for_token, log_request
+from utils import get_user_or_404, check_for_token, log_request, validate_required_fields
 from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import jwt_required
@@ -22,6 +22,7 @@ def change_password(username):
     try:
         log_request(request)
         logger.debug('Changing password for user: %s', username)
+
         current_user_identity, error_response, status = check_for_token()
         if error_response:
             return error_response, status
@@ -31,8 +32,12 @@ def change_password(username):
             return jsonify({'message': 'You are not authorized to change this user\'s password'}), 403
 
         data = request.get_json()
-        if not data:
-            return jsonify({'message': 'Request body is missing or not JSON'}), 400
+
+        valid_data, missing_fields = validate_required_fields(data, ['newPassword'], "login")
+        if not valid_data:
+            return jsonify({'error': 'Missing data from request'}), 400
+        if len(missing_fields) > 0:
+            return jsonify({'error': 'Missing fields in request: ' + (', '.join(missing_fields))}), 400
 
         new_password = data.get('newPassword')
         if not new_password:
@@ -52,6 +57,7 @@ def change_password(username):
             'message': 'Password updated successfully',
             'username': user.username
         }), 200
+
     except sqlalchemy.exc.SQLAlchemyError as sql_error:
         db.session.rollback()
         # current_app.logger.error(f"Database error during password change: {sql_error}")
